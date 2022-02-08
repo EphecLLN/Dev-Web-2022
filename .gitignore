@@ -1,0 +1,11 @@
+# Idea
+/.idea/
+
+# Vim
+*.sw*
+
+# Node
+/node_modules/
+
+# Jest coverage
+/tests/unit/coverage/

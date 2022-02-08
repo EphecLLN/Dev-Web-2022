@@ -1,21 +1,26 @@
 # Dev-Web-2022
-Template de repo pour le projet Dev Web 2022
 
-## Comment copier ce Wiki? 
+## Getting started
 
--- ATTENTION : Wiki non définitif, attendre le feu vert des enseignants avant de faire la copie!! --
+Install [NodeJS][nodejs-download] v16 or above, and run:
 
-Pour récupérer le template et l'utiliser dans le cadre de votre projet, vous allez devoir faire un "fork" de ce repo.  Cependant, le wiki n'est pas copié automatiquement.  Suivez donc la procédure ci-dessous : 
+```
+npm install && npm run dev
+```
 
-1.  Créez un fork de ce repository.  Ce sera votre repo de projet, avec une URL de type `https://github.com/<username>/<repo-name>`.  
-2.  Créez un wiki dans ce nouveau repo, avec une Home page vide par exemple. 
-3.  Clonez le repo git du wiki original sur votre machine :  `git clone https://github.com/EphecLLN/Dev-Web-2022.wiki.git`
-4.  Pour "pousser" le wiki présent sur votre machine vers votre repository de projet, vous allez changer le pointeur "remote" de votre copie locale : 
-    `git remote add fork https://github.com/<username>/<repo-name>.wiki.git`
-6.  Forcez à présent la copie du wiki sur votre machine vers votre repository de projet.  Cela écrasera le wiki vide que vous aviez créé plus tôt avec le template :   `git push -f fork master`
+## Using [Nix](nixos.org)
 
-## Utilisation
+This repository is a nix flake. You will need a
+[flake-enabled nix installation][nix-enable-flake] to use it.
 
+### Development shell
 
+This flake provides a development environment powered by
+[devshell][numtide-devshell]. It comes with node and all the project's
+dependencies installed, and some extra niceties. To enter it, run:
 
-Il vous est demandé de respecter la table des matières du projet, afin que les enseignants puissent facilement retrouver les informations qu'ils cherchent.  Si vous souhaitez effectuer un changement dans sa structure, parlez-en d'abord avec votre coach.  
+```
+nix develop
+```
+
+[nodejs-download]: https://nodejs.org/en/download/

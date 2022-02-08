@@ -1,0 +1,13 @@
+{
+  "name": "Dev Web 2022",
+  "short_name": "Dev3",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Multiplayer co-op online RPG",
+  "icons": [{
+    "src": "favicon.png",
+    "sizes": "64x64",
+    "type": "image/png"
+  }]
+}

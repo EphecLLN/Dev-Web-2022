@@ -1,0 +1,20 @@
+[devshell]
+name = "dev-web-2022"
+
+[[commands]]
+name = "npm"
+package = "nodejs-16_x"
+
+[[commands]]
+name = "node"
+package = "nodejs-16_x"
+
+[devshell.startup.install-node-deps]
+text = 'npm install --prefix "$PRJ_ROOT"'
+
+[devshell.startup.add-node-bin-to-path]
+text = '''
+for node_bin_path in $(fd bin -t d node_modules/); do
+  export PATH="${PATH:+$PATH:}$node_bin_path"
+done
+'''
