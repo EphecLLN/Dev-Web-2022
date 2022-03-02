@@ -12,8 +12,14 @@ const port = process.env.port || 8080;
 
 app.listen(port,() => console.log(`server started on port ${port}`));
 
-app.get("/",(req,res) => {
+app.get("/test",(req,res) => {
     res.send({
         message:'test'
+    })
+})
+
+app.get("/",(req,res) => {
+    res.send({
+        message:'test2'
     })
 })
