@@ -2,8 +2,11 @@
 
 # étudiants réalisant le projet
 Morgane Leclecq 
+
 Saskia Libotte
+
 Simon Nolf
+
 Séverin Robert
 
 ## Getting started
