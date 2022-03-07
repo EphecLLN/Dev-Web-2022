@@ -1,5 +1,11 @@
 # Dev-Web-2022
 
+# étudiants réalisant le projet
+Morgane Leclecq 
+Saskia Libotte
+Simon Nolf
+Séverin Robert
+
 ## Getting started
 
 Install [NodeJS][nodejs-download] v16 or above, and run:
