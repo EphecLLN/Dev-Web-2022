@@ -2,7 +2,7 @@ import {Badge} from "@material-ui/core";
 import {Search, ShoppingCart, ShoppingCartOutlined} from "@material-ui/icons";
 import React from 'react';
 import styled from 'styled-components';
-
+import logo from '../img/logo.png' // relative path to image
 
 const Container = styled.div`
     height: 60px;
@@ -75,7 +75,7 @@ const Navbar = () => {
                     <Search style={{color: "gray", fontSize: 16}}/>
                 </SearchContainer>
             </Left>
-            <Center><Logo>Papyrus</Logo></Center>
+            <Center><img src = {logo} /></Center>
             <Right>
                 <MenuItem>SIGN IN</MenuItem>
                 <MenuItem>REGISTER</MenuItem>
