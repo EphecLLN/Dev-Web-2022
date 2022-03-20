@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
-import Navbar from "./components/navbar/index";
+import Navbar from "./components/navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./pages/index";
+import Home from "./pages";
 import About from "./pages/about";
 import Play from "./pages/team";
 import Creation from "./pages/creation";
