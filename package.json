@@ -1,15 +1,28 @@
 {
   "name": "dev-web-2022",
   "version": "0.0.1",
+  "private": true,
   "description": "Website development project for the Dev-3 course at EPHEC college",
   "license": "GPLv3",
-  "private": true,
   "scripts": {
     "dev": "set NODE_ENV=development && node ./bin/www",
     "prod": "exit 1",
     "unit": "jest --config tests/unit/jest.config.js --coverage",
     "integration": "jest --config tests/integration/jest.config.js --coverage",
     "lint": "eslint --ext .js server client tests",
+    "unit": "jest --config tests/unit/jest.config.js --coverage"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
@@ -49,17 +62,5 @@
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4",
     "webpack-manifest-plugin": "^4.0.2"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }

@@ -10,7 +10,7 @@ const Play = () => {
         height: "100vh",
       }}
     >
-      <h1>bienvenue sur l'ouglet pour jouer</h1>
+      <h1>bienvenue sur l&apos;onglet pour jouer</h1>
     </div>
   );
 };
