@@ -9,7 +9,7 @@
     "prod": "exit 1",
     "unit": "jest --config tests/unit/jest.config.js --coverage",
     "integration": "jest --config tests/integration/jest.config.js --coverage",
-    "lint": "eslint --ext .js src routes tests bin/www"
+    "lint": "eslint --ext .js server tests bin/www"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const app = require("../src/app")
+const app = require("../server/app")
 const debug = require("debug")("dev-web-2022:server")
 const http = require("http")
 
