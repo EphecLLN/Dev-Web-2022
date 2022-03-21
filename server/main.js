@@ -1,8 +1,14 @@
 #!/usr/bin/env node
 
-const app = require("../server/app")
+const { app, setupIO } = require("./app")
+const { PORT } = require("./env")
 const debug = require("debug")("dev-web-2022:server")
 const http = require("http")
+
+let port = PORT.PROD
+if (app.get("env") === "development") {
+  port = PORT.DEV
+}
 
 function onError (error) {
   if (error.syscall !== "listen") {
@@ -32,23 +38,12 @@ function onListening () {
   const address = server.address()
   const bind = typeof address === "string"
     ? `pipe ${address}`
-    : `port ${address.port}`
+    : `${address.address}:${address.port}`
   debug(`Listening on ${bind}`)
 }
 
-let port = "80"
-if (app.get("env") === "development") {
-  port = parseInt(process.env.PORT || "8080")
-}
-if (isNaN(port)) {
-  // Named pipe
-  port = process.env.PORT
-} else if (port < 0) {
-  debug(`Invalid port numbeR: ${port}`)
-  process.exit(1)
-}
-
 const server = http.createServer(app)
+setupIO(server)
 server.listen(port)
 server.on("error", onError)
 server.on("listening", onListening)
