@@ -11,10 +11,41 @@ app.get("/", (req, res) => {
 })
 
 function setupIO (server) {
+  const users = [
+    {
+      name: "Marsouin",
+      color: "#14854f",
+    },
+    {
+      name: "Lynx",
+      color: "#d6a71a",
+    },
+    {
+      name: "Surricate",
+      color: "#e62e4d",
+    },
+  ]
+
   const io = new Server(server)
   io.on("connection", (socket) => {
-    socket.on("chat message", msg => {
+    console.log("User connected")
+    socket.on("chat message", (msg, callback) => {
+      let {
+        user,
+        text,
+      } = msg
+      if (user?.name === undefined) {
+        msg.user = users.pop() ?? {
+          name: "unknown",
+          color: "4F4F4F",
+        }
+        callback(msg.user)
+      }
+      console.log(`User ${msg.user.name} sent msg: ${text}`)
       io.emit("chat message", msg)
+    })
+    socket.on("disconnect", () => {
+      console.log("User disconnected")
     })
   })
 }
