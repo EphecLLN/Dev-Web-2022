@@ -1,0 +1,23 @@
+@startuml
+title Dev-Web-2022 Architecture Diagram
+
+cloud "World Wide Web" as www
+
+node Server {
+    collections "Static Files" as static
+    component WebSocket as server_sock
+    component "Express Web Server" as express
+    express -[#black,dotted,thickness=2]down-> static : serves
+}
+
+node Client as client {
+    component React as react
+    react <-[#blue,dashed,thickness=2]up-> www : medias
+    component WebSocket as client_sock
+}
+
+react <-[#blue,dashed,thickness=2]down-> express : resources
+client_sock -[#green,dashed,thickness=2]down-> server_sock : send
+server_sock -[#green,dashed,thickness=2]up-> client_sock : broadcast
+
+@enduml
