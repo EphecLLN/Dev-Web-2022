@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {ArrowBackIos, ArrowForwardIos} from "@material-ui/icons";
+import Data from "./Data";
 
 
 const Container = styled.div`
@@ -38,7 +39,7 @@ const Container = styled.div`
         flex: 1;
     `
     const Imgage = styled.div`
-   
+        text-align: center;
     `
 
     const InfoContainer = styled.div`
@@ -54,7 +55,9 @@ const Slider = () => {
             <Wrapper>
                 <ImgContainer>
                     <Imgage>
-                    
+                        <Data>
+
+                        </Data>
                     </Imgage>
                 </ImgContainer>
                 <InfoContainer></InfoContainer>
@@ -62,7 +65,7 @@ const Slider = () => {
         <Arrow direction="right">
             <ArrowForwardIos/>
         </Arrow>
-    </Container>   
+    </Container>
   )
 }
 
