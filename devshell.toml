@@ -3,18 +3,30 @@ name = "dev-web-2022"
 
 [[commands]]
 name = "npm"
+category = "Node"
+help = "The NodeJS package manager"
 package = "nodejs-16_x"
+
 
 [[commands]]
 name = "node"
+category = "Node"
 package = "nodejs-16_x"
+
+[[commands]]
+name = "plantuml"
+package = "plantuml"
+
+[[commands]]
+name = "graphviz"
+package = "graphviz"
 
 [devshell.startup.install-node-deps]
 text = 'npm install --prefix "$PRJ_ROOT"'
 
 [devshell.startup.add-node-bin-to-path]
 text = '''
-for node_bin_path in $(fd bin -t d node_modules/); do
+for node_bin_path in $(fd bin -t d "$PRJ_ROOT"/node_modules/); do
   export PATH="${PATH:+$PATH:}$node_bin_path"
 done
 '''

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "outDir": "dist/scripts/common",
+    "module": "ES2020",
+    "target": "ES3",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "declarationMap": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+  },
+  "include": [
+    "common/**/*.ts",
+  ]
+}
