@@ -1,60 +1,51 @@
 import React, { Component } from "react"
-import socketIOClient from "socket.io-client"
+import { Color } from "../../common/color"
+import { Client } from "../../common/proto"
 
 class Play extends Component {
-  user = "unknown"
-  color = "#4f4f4f"
+  player = null
 
   componentDidMount () {
     const form = document.getElementById("form")
     const input = document.getElementById("input")
     const messages = document.getElementById("messages")
 
-    const socket = socketIOClient()
+    const client = new Client()
 
     form.addEventListener("submit", (evt) => {
-      let callback = (response) => {
-        if (response?.name && response?.color) {
-          this.user = response.name
-          this.color = response.color
-        }
-      }
-      if (this.user !== "unknown") {
-        callback = () => {
-        }
-      }
-
-      const msg = {
-        user: {
-          name: this.user,
-          color: this.color,
-        },
-        text: input.value,
-      }
-      if (this.user === "unknown") {
-        msg.user = undefined
-      }
-
       evt.preventDefault()
       if (input.value) {
-        socket.emit("chat message", msg, callback)
+        client.sendChat(this.player, input.value).then(
+          p => {
+            if (this.player === null) {
+              this.player = p
+            }
+          },
+          () => {
+            this.player = {
+              name: "unknown",
+              color: Color.GREY,
+            }
+          },
+        )
         console.log(`Sent event "chat message": ${input.value}`)
         input.value = ""
       }
     })
-    socket.on("chat message", (msg) => {
-      console.log(msg)
+    // noinspection JSUnresolvedVariable
+    client.socket.on("chatMessage", (player, msg) => {
+      console.log(`received from ${player.name}: ${msg}`)
       // TODO: Make a custom component instead of gluing stuff together
       const item = document.createElement("li")
       item.className = "row"
       const sender = document.createElement("div")
       sender.className = "col-2 is-center"
-      sender.style.background = msg.user.color
-      sender.textContent = msg.user.name
+      sender.style.background = player.color
+      sender.textContent = player.name
       item.appendChild(sender)
       const message = document.createElement("div")
       message.className = "col is-left"
-      message.textContent = msg.text
+      message.textContent = msg
       item.appendChild(message)
       messages.appendChild(item)
       window.scrollTo(0, document.body.scrollHeight)

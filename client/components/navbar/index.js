@@ -11,10 +11,13 @@ import {
 const Navbar = () => {
   return (
     <>
-      <Nav>
+      <nav className="nav">
         <Bars />
 
-        <NavMenu>
+        <div className="nav-center">
+          <NavLink to="/" activeStyle>
+            Home
+          </NavLink>
           <NavLink to="/about" activeStyle>
             About
           </NavLink>
@@ -26,8 +29,8 @@ const Navbar = () => {
           </NavLink>
           {/* Second Nav */}
           {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
-        </NavMenu>
-      </Nav>
+        </div>
+      </nav>
     </>
   );
 };

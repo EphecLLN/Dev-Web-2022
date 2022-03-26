@@ -6,14 +6,32 @@ const port = process.env.PORT || 8080
 
 module.exports = {
   mode: "development",
-  entry: "./client/index.js",
+  entry: {
+    client: {
+      import: "./client/index.js",
+    },
+  },
   output: {
     clean: true,
     filename: "scripts/[name].[fullhash].js",
   },
   devtool: "inline-source-map",
+  resolve: {
+    // Order matters !
+    extensions: [ ".js", ".ts", ".json", ".css"],
+  },
   module: {
     rules: [
+      {
+        test: /\.(js)$/,
+        exclude: /node_modules/,
+        use: ["babel-loader"],
+      },
+      {
+        test: /\.(ts)$/,
+        exclude: /node_modules/,
+        use: ["ts-loader"],
+      },
       {
         test: /\.(js)$/,
         exclude: /node_modules/,

@@ -29,20 +29,20 @@ function setupIO (server) {
   const io = new Server(server)
   io.on("connection", (socket) => {
     console.log("User connected")
-    socket.on("chat message", (msg, callback) => {
-      let {
-        user,
-        text,
-      } = msg
-      if (user?.name === undefined) {
-        msg.user = users.pop() ?? {
-          name: "unknown",
-          color: "4F4F4F",
+    socket.on("chatMessage", (player, msg, callback) => {
+      let assigned_player
+      if (player === null) {
+        assigned_player = users.pop()
+        console.log(`New user is ${assigned_player.name} ${assigned_player.color}`)
+      } else {
+        assigned_player = {
+          name: player.name,
+          color: player.color.toString(),
         }
-        callback(msg.user)
       }
-      console.log(`User ${msg.user.name} sent msg: ${text}`)
-      io.emit("chat message", msg)
+      console.log(`User ${assigned_player.name} sent msg: ${msg}`)
+      io.emit("chatMessage", assigned_player, msg)
+      callback(assigned_player ?? null)
     })
     socket.on("disconnect", () => {
       console.log("User disconnected")
