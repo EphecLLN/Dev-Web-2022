@@ -39,7 +39,7 @@ const Container = styled.div`
         flex: 1;
     `
     const Imgage = styled.div`
-        text-align: center;
+        
     `
 
     const InfoContainer = styled.div`
@@ -55,9 +55,7 @@ const Slider = () => {
             <Wrapper>
                 <ImgContainer>
                     <Imgage>
-                        <Data>
 
-                        </Data>
                     </Imgage>
                 </ImgContainer>
                 <InfoContainer></InfoContainer>
