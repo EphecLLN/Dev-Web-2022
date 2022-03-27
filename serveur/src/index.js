@@ -25,7 +25,7 @@ const port = process.env.port || 3000;
 
 app.listen(port,() => console.log(`server started on port ${port}`));
 
-app.post("/newclient",(req,res) => {
+app.post("/client",(req,res) => {
 
     const firstname = req.body.firstname
     const lastname = req.body.lastname
@@ -53,7 +53,7 @@ app.post("/newclient",(req,res) => {
 
 })
 
-app.post("/addTools",(req,res) => {
+app.post("/tools",(req,res) => {
     const tool_name = req.body.tool_name
     const tool_category = req.body.tool_category
     const price_rental_day = req.body.price_rental_day
