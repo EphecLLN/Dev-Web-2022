@@ -1,24 +1,22 @@
 const webpack = require("webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
-
-const port = process.env.PORT || 8080
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin")
 
 module.exports = {
   mode: "development",
   entry: {
     client: {
-      import: "./client/index.js",
+      import: ["webpack-hot-middleware/client", "./client/index.js"],
     },
   },
   output: {
-    clean: true,
     filename: "scripts/[name].[fullhash].js",
   },
   devtool: "inline-source-map",
   resolve: {
     // Order matters !
-    extensions: [ ".js", ".ts", ".json", ".css"],
+    extensions: [".js", ".ts", ".json", ".css"],
   },
   module: {
     rules: [
@@ -66,20 +64,20 @@ module.exports = {
       favicon: "public/images/favicon.png",
     }),
     new CopyWebpackPlugin({
-      patterns: [{
-        from: "**/*",
-        context: "public",
-        globOptions: {
-          gitignore: true,
-          ignore: ["**/*.html", "**/*.ico"],
-        }
-      }],
+      patterns: [
+        {
+          from: "**/*",
+          context: "public",
+          globOptions: {
+            gitignore: true,
+            ignore: ["**/*.html", "**/*.ico"],
+          },
+        },
+      ],
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin({
+      overlay: { sockIntegration: "whm" },
     }),
   ],
-  devServer: {
-    host: "localhost",
-    port: port,
-    historyApiFallback: true,
-    open: true,
-  },
 }

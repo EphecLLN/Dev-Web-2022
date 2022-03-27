@@ -30,6 +30,7 @@ module.exports = {
     },
   },
   rules: {
+    "semi": ["error", "never"],
     "quotes": ["error", "double"],
     "prefer-arrow-callback": "error",
     "jest/no-disabled-tests": "warn",

@@ -7,7 +7,6 @@ category = "Node"
 help = "The NodeJS package manager"
 package = "nodejs-16_x"
 
-
 [[commands]]
 name = "node"
 category = "Node"
@@ -20,6 +19,30 @@ package = "plantuml"
 [[commands]]
 name = "graphviz"
 package = "graphviz"
+
+[[commands]]
+name = "build"
+category = "Node"
+help = "Build the React frontend and typescript files"
+command = "npm run build"
+
+[[commands]]
+name = "watch"
+category = "Node"
+help = "Continuously rebuild the React frontend and typescript files"
+command = "npm run watch"
+
+[[commands]]
+name = "serve"
+category = "Node"
+help = "Serve the website"
+command = "npm run serve"
+
+[[commands]]
+name = "dev"
+category = "Node"
+help = "Start continuous rebuild and serve the website"
+command = "npm run dev"
 
 [devshell.startup.install-node-deps]
 text = 'npm install --prefix "$PRJ_ROOT"'

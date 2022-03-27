@@ -1,9 +1,33 @@
 const express = require("express")
 const { Server } = require("socket.io")
-const { PATHS } = require("./env")
+const webpack = require("webpack")
+
+const {
+  IS_PROD,
+  PATHS,
+} = require("./env")
 
 
 const app = express()
+
+if (!IS_PROD) {
+  const config = require("../webpack.config.dev.js")
+  const compiler = webpack(config)
+  app.use(
+    require("webpack-dev-middleware")(compiler, {
+      publicPath: config.output.publicPath,
+    }),
+  )
+
+  app.use(
+    require("webpack-hot-middleware")(compiler, {
+      log: false,
+      path: "/__webpack_hmr",
+      heartbeat: 2 * 1000,
+    }),
+  )
+}
+
 app.use(express.static(PATHS.STATIC))
 
 app.get("/", (req, res) => {
