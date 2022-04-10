@@ -2,7 +2,7 @@
   <section class="banner-one" id="banner" style="background-image: url(/assets/images/background/yellow-background.jpg);">
 
     <div class="container">
-      <img src="/assets/images/banner_tools.jpg" alt="" class="banner-one__moc">
+      <img src="/assets/images/banner_tools.png" alt="" class="banner-one__moc">
       <div class="row">
         <div class="col-lg-7">
           <div class="banner-one__content">

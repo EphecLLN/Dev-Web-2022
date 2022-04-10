@@ -22,7 +22,7 @@
           <div class="main-nav__main-navigation">
             <ul class="one-page-scroll-menu main-nav__navigation-box">
               <li class="current scrollToLink">
-                <a href="#menu">Menu</a>
+                <a href="#Home">Home</a>
               </li>
               <li class="scrollToLink">
                 <a href="#services">Nos services</a>

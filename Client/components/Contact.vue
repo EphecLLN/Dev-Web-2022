@@ -8,8 +8,6 @@
         <div class="col-lg-6">
           <div class="contact-one__content">
             <div class="contact-one__images">
-              <img src="/assets/images/resources/contact-1.jpg" class="wow fadeInUp" data-wow-duration="1500ms" alt="">
-              <img src="/assets/images/resources/contact-2.jpg" class="wow fadeInUp" data-wow-duration="1500ms" alt="">
             </div><!-- /.contact-one__images -->
             <div class="contact-one__infos">
               <div class="contact-one__infos-single">
@@ -17,8 +15,8 @@
                   <i class="zimed-icon-placeholder"></i>
                 </div><!-- /.contact-one__infos-icon -->
                 <div class="contact-one__infos-content">
-                  <h3>Addresss</h3>
-                  <p>20 Broklyn Street, New York. United States of <br> America </p>
+                  <h3>Adress</h3>
+                  <p>2 avenue des ciseau, 1310 la hulpe <br> Belgique </p>
                 </div><!-- /.contact-one__infos-content -->
               </div><!-- /.contact-one__infos-single -->
               <div class="contact-one__infos-single">
@@ -27,7 +25,7 @@
                 </div><!-- /.contact-one__infos-icon -->
                 <div class="contact-one__infos-content">
                   <h3>Email</h3>
-                  <p><a href="mailto:needhelp@zimed.com">needhelp@zimed.com</a></p>
+                  <p><a href="mailto:needhelp@zimed.com">contact@gyt.be</a></p>
                 </div><!-- /.contact-one__infos-content -->
               </div><!-- /.contact-one__infos-single -->
               <div class="contact-one__infos-single">
@@ -36,7 +34,7 @@
                 </div><!-- /.contact-one__infos-icon -->
                 <div class="contact-one__infos-content">
                   <h3>Phone</h3>
-                  <p><a href="tel:666-888-0000">666 888 0000</a></p>
+                  <p><a href="tel:666-888-0000">+32 2 18 22 48</a></p>
                 </div><!-- /.contact-one__infos-content -->
               </div><!-- /.contact-one__infos-single -->
             </div><!-- /.contact-one__infos -->
@@ -46,19 +44,19 @@
           <div class="contact-one__form-wrap">
             <div class="block-title">
               <span class="block-title__bubbles"></span>
-              <p>Contact Us Now</p>
-              <h3>Write a Message</h3>
+              <p>Nous contacter</p>
+              <h3>Ecrivez un message</h3>
             </div><!-- /.block-title -->
             <form action="" class="contact-form-validated contact-one__form">
               <div class="row">
                 <div class="col-md-6">
-                  <input type="text" name="name" placeholder="Name">
+                  <input type="text" name="name" placeholder="Nom">
                 </div><!-- /.col-md-6 -->
                 <div class="col-md-6">
                   <input type="text" name="email" placeholder="Email">
                 </div><!-- /.col-md-6 -->
                 <div class="col-md-6">
-                  <input type="text" name="subject" placeholder="Subject">
+                  <input type="text" name="subject" placeholder="Sujet">
                 </div><!-- /.col-md-6 -->
                 <div class="col-md-6">
                   <select name="discuss" class="selectpicker">
@@ -68,8 +66,8 @@
                   </select>
                 </div><!-- /.col-md-6 -->
                 <div class="col-md-12">
-                  <textarea name="message" placeholder="Message"></textarea>
-                  <button type="submit" class="thm-btn contact-one__form-btn">Send Message</button>
+                  <textarea name="message" placeholder="Votre message ici..."></textarea>
+                  <button type="submit" class="thm-btn contact-one__form-btn">Envoyer</button>
                 </div><!-- /.col-md-12 -->
               </div><!-- /.row -->
             </form><!-- /.contact-one__form -->
