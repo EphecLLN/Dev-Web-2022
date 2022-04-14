@@ -9,6 +9,9 @@ Simon Nolf
 
 Séverin Robert
 
+# projet dev
+Le projet consiste a créer un site en ligne afin de créer et pouvoir jouer a un jeu de rôle préalablement réaliser par un autre utilisateur
+
 ## Getting started
 
 Install [NodeJS][nodejs-download] v16 or above, and run:
