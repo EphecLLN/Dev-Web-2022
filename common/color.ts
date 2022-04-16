@@ -80,9 +80,18 @@ export class Color {
     }
 
     toString(): ColorStr {
-        const r2 = Number(this.r).toString(16)
-        const g2 = Number(this.g).toString(16)
-        const b2 = Number(this.b).toString(16)
+        let r2 = Number(this.r).toString(16);
+        if (this.r < 16) {
+            r2 = `0${r2}`
+        }
+        let g2 = Number(this.g).toString(16);
+        if (this.g < 16) {
+            g2 = `0${g2}`
+        }
+        let b2 = Number(this.b).toString(16);
+        if (this.b < 16) {
+            b2 = `0${b2}`
+        }
         return `#${r2}${g2}${b2}` as ColorStr
     }
 }
