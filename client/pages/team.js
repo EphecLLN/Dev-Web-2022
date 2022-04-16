@@ -3,7 +3,9 @@ import { Color } from "../../common/color"
 import { Client } from "../../common/proto"
 
 class Play extends Component {
-  player = null
+  client
+  access = { time: 0 }
+  refresh = { time: 0 }
 
   state = {
     loggedIn: false,
@@ -32,8 +34,47 @@ class Play extends Component {
     })
   }
 
+  // TODO: Make this a class
+  authContext () {
+    // TODO: Make this a static singleton
+    this.client = this.client ?? new Client()
+    const now = Math.ceil(new Date().getTime() / 1000)
+    if (now > this.access.time) {
+      let ctx
+      if (now > this.refresh.time) {
+        ctx = this.client.send("register", {
+          // FIXME
+          name: this.state.name,
+          color: new Color(
+            this.state.color.red,
+            this.state.color.green,
+            this.state.color.blue
+          ).toString(),
+        }).then(
+          ({ grant }) => this.client.send("authenticate", grant.grant),
+          ({ reason }) => console.log(`Couldn't register: ${reason}`),
         )
+      } else {
+        ctx = this.client.send("refresh", this.refresh.token)
       }
+      return ctx.then(
+        ({
+          access,
+          refresh,
+        }) => {
+          this.access = access
+          this.refresh = refresh
+          this.setState({ loggedIn: true })
+          return access.token
+        },
+        () => {
+          console.log("Couldn't authenticate")
+          this.setState({ loggedIn: false })
+        },
+      )
+    }
+    return Promise.resolve(this.access.token)
+  }
 
   componentDidMount () {
     const form = document.getElementById("form-login")
@@ -41,9 +82,10 @@ class Play extends Component {
       evt.preventDefault()
       this.setState({
         name: document.getElementById("input-name").value,
-        loggedIn: true,
       })
-      console.log("successfully logged in"),
+      this.authContext().then(
+        () => console.log("successfully logged in"),
+      )
     })
   }
 
@@ -55,7 +97,7 @@ class Play extends Component {
       form.addEventListener("submit", (evt) => {
         evt.preventDefault()
         if (input.value) {
-          Promise.reject("Client-side auth unimplemented").then((token) => {
+          this.authContext().then((token) => {
             this.client.send("chatMessage", {
               token,
               msg: input.value,
@@ -92,7 +134,7 @@ class Play extends Component {
             type="range" min="0" max="255" defaultValue="150"
             onInput={(evt) => this.setState({
               color: {
-                red: clamp(0, evt.target.value, 255),
+                red: evt.target.value,
                 green: this.state.color.green,
                 blue: this.state.color.blue,
               },
@@ -110,7 +152,7 @@ class Play extends Component {
             onInput={(evt) => this.setState({
               color: {
                 red: this.state.color.red,
-                green: clamp(0, evt.target.value, 255),
+                green: evt.target.value, 255,
                 blue: this.state.color.blue,
               },
             })}
@@ -128,7 +170,7 @@ class Play extends Component {
               color: {
                 red: this.state.color.red,
                 green: this.state.color.green,
-                blue: clamp(0, evt.target.value, 255),
+                blue: evt.target.value, 255,
               },
             })}
           />
