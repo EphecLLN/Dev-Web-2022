@@ -57,7 +57,9 @@ function setupIO (server) {
       let assigned_player
       if (player === null) {
         assigned_player = users.pop()
-        console.log(`New user is ${assigned_player.name} ${assigned_player.color}`)
+        console.log(
+          `New user is ${assigned_player.name} ${assigned_player.color}`
+        )
       } else {
         assigned_player = {
           name: player.name,

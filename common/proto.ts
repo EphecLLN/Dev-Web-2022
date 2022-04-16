@@ -1,14 +1,12 @@
 // This module defines the implementation of our simplistic protocol for
 // exchanging event messages during a game
 
-import {
-    io as IOClient,
+import {io as IOClient,
     ManagerOptions,
     Socket as ClientSocket,
-    SocketOptions
-} from "socket.io-client";
-import { Color } from "./color";
-import { Opaque } from "./types";
+    SocketOptions} from "socket.io-client"
+import { Color } from "./color"
+import { Opaque } from "./types"
 
 /**
  * Protocol version
@@ -32,7 +30,7 @@ export type Name = Opaque<string, "Name">
  *  alphanumerical words, `null` otherwise.
  */
 export function nameFrom(s: NonNullable<string>): Name | null {
-    for (const word in s.split("-"))
+    for (const word of s.split("-"))
         if (!word.match(/^[a-zA-Z0-9]+$/)) return null
     return s as Name
 }
@@ -68,7 +66,7 @@ interface S2CEvents {
  * Represents the client end of a bi-directional connection.
  */
 export class Client {
-    private socket: ClientSocket<S2CEvents, C2SEvents>;
+    private socket: ClientSocket<S2CEvents, C2SEvents>
 
     constructor(uri?: string, opt?: Partial<ManagerOptions & SocketOptions>) {
         const opts = opt ?? {}

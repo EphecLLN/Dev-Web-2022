@@ -18,4 +18,4 @@ module.exports = {
   slowTestThreshold: 10,
   testEnvironment: "jsdom",
   verbose: true,
-};
+}

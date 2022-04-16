@@ -1,4 +1,4 @@
-import { Opaque } from "./types";
+import { Opaque } from "./types"
 
 /**
  * A type-checked tint value, e.g. like the red value in a RGB color.
@@ -35,9 +35,9 @@ export class Color {
     static GREY = new Color(79 as Tint, 79 as Tint, 79 as Tint)
     static GREEN = new Color(20 as Tint, 133 as Tint, 79 as Tint)
 
-    private r: Tint;
-    private g: Tint;
-    private b: Tint;
+    private r: Tint
+    private g: Tint
+    private b: Tint
 
     private constructor(r: Tint, g: Tint, b: Tint) {
         this.r = r
@@ -61,20 +61,26 @@ export class Color {
         b: number,
     ): Promise<Color> {
         return new Promise((resolve, reject) => {
-            tintFrom(r)
-                .then(r => tintFrom(g).then(g => {
+            tintFrom(r).then(
+                r => tintFrom(g).then(g => {
                     return { r, g }
-                }), reason => reject(`invalid red component: ${reason}`))
-                .then(color => tintFrom(b).then(b => {
+                }),
+                (reason: string) => reject(`invalid red component: ${reason}`)
+            ).then(
+                color => tintFrom(b).then(b => {
                     return { b, ...color }
-                }), reason => reject(`invalid green component: ${reason}`))
+                }),
+                (reason: string) => reject(`invalid green component: ${reason}`)
+            )
                 .then(
                     (color: { r: Tint, g: Tint, b: Tint }) => resolve(new Color(
                         color.r,
                         color.g,
                         color.b
                     )),
-                    reason => reject(`invalid blue component: ${reason}`)
+                    (reason: string) => reject(
+                        `invalid blue component: ${reason}`
+                    )
                 )
         })
     }

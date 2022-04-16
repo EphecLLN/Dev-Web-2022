@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const Creation = () => {
   return (
@@ -12,7 +12,7 @@ const Creation = () => {
     >
       <h1>Bienvenue sur l&apos;interface de création</h1>
     </div>
-  );
-};
+  )
+}
 
-export default Creation;
+export default Creation
