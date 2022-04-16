@@ -1,5 +1,5 @@
 
-let crypto = require('crypto');
+let crypto = require("crypto")
 
 /**
  * generates random string of characters i.e salt
@@ -8,9 +8,9 @@ let crypto = require('crypto');
  */
 let genRandomString = (length) => {
     return crypto.randomBytes(Math.ceil(length/2))
-            .toString('hex') /** convert to hexadecimal format */
-            .slice(0,length);   /** return required number of characters */
-};
+            .toString("hex") /** convert to hexadecimal format */
+            .slice(0,length)   /** return required number of characters */
+}
 
 /**
  * hash password with sha512.
@@ -19,26 +19,26 @@ let genRandomString = (length) => {
  * @param {string} salt
  */
 let sha512 = (password, salt) => {
-    let hash = crypto.createHmac('sha512', salt);
-    hash.update(password);
-    let value = Buffer.from(hash.digest('binary'),'binary');
+    let hash = crypto.createHmac("sha512", salt)
+    hash.update(password)
+    let value = Buffer.from(hash.digest("binary"),"binary")
     return {
         salt:salt,
         passwordHash:value
-    };
-};
+    }
+}
 
 let saltHashPassword = (userpassword) => {
-    let salt = genRandomString(16);
-    let passwordData = sha512(userpassword, salt);
-    return passwordData;
+    let salt = genRandomString(16)
+    let passwordData = sha512(userpassword, salt)
+    return passwordData
 }
 
 let login = (userpassword, salt, passwordHash) => {
-    let passwordData = sha512(userpassword, salt);
-    return Buffer.compare(passwordData.passwordHash, passwordHash) == 0;
+    let passwordData = sha512(userpassword, salt)
+    return Buffer.compare(passwordData.passwordHash, passwordHash) == 0
 }
 
 
-module.exports.saltHashPassword = saltHashPassword;
-module.exports.login = login;
+module.exports.saltHashPassword = saltHashPassword
+module.exports.login = login

@@ -18,4 +18,4 @@ module.exports = {
   notify: false,
   notifyMode: "failure-change",
   slowTestThreshold: 1,
-};
+}

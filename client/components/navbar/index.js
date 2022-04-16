@@ -1,12 +1,5 @@
-import React from "react";
-import {
-  Nav,
-  NavLink,
-  Bars,
-  NavMenu,
-  // NavBtn,
-  // NavBtnLink,
-} from "./NavBar elements";
+import React from "react"
+import { NavLink, Bars } from "./NavBar elements"
 
 const Navbar = () => {
   return (
@@ -32,7 +25,7 @@ const Navbar = () => {
         </div>
       </nav>
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

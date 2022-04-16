@@ -1,11 +1,11 @@
-import React from "react";
-import "./App.css";
-import Navbar from "./components/navbar";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./pages";
-import About from "./pages/about";
-import Play from "./pages/team";
-import Creation from "./pages/creation";
+import React from "react"
+import "./App.css"
+import Navbar from "./components/navbar"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import Home from "./pages"
+import About from "./pages/about"
+import Play from "./pages/team"
+import Creation from "./pages/creation"
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <Route path="/play" component={Play} />
       </Switch>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App
