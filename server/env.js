@@ -24,4 +24,6 @@ module.exports = {
   PATHS: {ROOT: root_dir, STATIC: static_dir},
   PORT: {DEV: port_dev, PROD: 80},
   IS_PROD: node_env === "production",
+  IS_DEV: node_env === "development",
+  NODE_ENV: node_env,
 }

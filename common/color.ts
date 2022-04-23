@@ -5,7 +5,7 @@ import { Opaque } from "./types";
  *
  * It is guaranteed to be an integer between 0 and 255 both inclusive.
  */
-export type Tint = Opaque<number, "Tint">
+export type Tint = Opaque<number, { Tint: true }>
 
 /**
  * Fallibly converts to a tint.
@@ -79,11 +79,21 @@ export class Color {
         })
     }
 
-    toString(): string {
-        const r2 = Number(this.r).toString(16)
-        const g2 = Number(this.g).toString(16)
-        const b2 = Number(this.b).toString(16)
-        return `#${r2}${g2}${b2}`
+    toString(): ColorStr {
+        let r2 = Number(this.r).toString(16);
+        if (this.r < 16) {
+            r2 = `0${r2}`
+        }
+        let g2 = Number(this.g).toString(16);
+        if (this.g < 16) {
+            g2 = `0${g2}`
+        }
+        let b2 = Number(this.b).toString(16);
+        if (this.b < 16) {
+            b2 = `0${b2}`
+        }
+        return `#${r2}${g2}${b2}` as ColorStr
     }
 }
 
+export type ColorStr = Opaque<string, { ColorStr: true }>
