@@ -10,6 +10,7 @@ let hash = crypto.createHash('sha512');
 
 let hashed = (word) => { hash.update(word, 'utf-8').digest('hex'); };
 
+
 /* GET  */
 router.get("/", (req, res,) => {
     res.send("WORKING")
@@ -45,6 +46,7 @@ router.delete("/user/:userId", jsonParser, (req, res,) => {
     //     if(err) throw err;
     //     res.json(rows);
     // })
+
 })
 
 module.exports = router
