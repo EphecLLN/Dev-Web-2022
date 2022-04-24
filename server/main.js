@@ -38,7 +38,7 @@ class App {
     app.get("/", (req, res) => {
       res.sendFile("index.html")
     })
-    app.use('/api_v0',api)
+    app.use('/api_v0', api)
     // Insert hot-reload middleware if in development mode
     if (IS_DEV) {
       const config = require("../webpack.config.dev.js")

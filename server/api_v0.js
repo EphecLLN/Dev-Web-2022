@@ -1,11 +1,14 @@
 const express = require("express")
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 const router = express.Router()
 const db = require("./database");
-const cypto = require('crypto');
+const crypto = require('crypto');
 
 
-var jsonParser = bodyParser.json()
+let jsonParser = bodyParser.json()
+let hash = crypto.createHash('sha512');
+
+let hashed = (word) => { hash.update(word, 'utf-8').digest('hex'); };
 
 /* GET  */
 router.get("/", (req, res,) => {
@@ -22,21 +25,26 @@ router.get("/users", (req, res,) => {
 
 /* POST a new user. */
 router.post("/users", jsonParser, (req, res,) => {
-    console.log(req.body)
-    db.connection.query(`INSERT INTO users (pseudo, password) VALUES ('${req.body.pseudo}', '${req.body.password}');`, (err, rows) => {
+    let h = hashed(req.body.password)
+    db.connection.query(`INSERT INTO users (pseudo, password) VALUES ('${req.body.pseudo}', '${h}');`, (err, rows) => {
         if(err) throw err;
+        console.log(h);
         res.json(rows);
     })
 })
 
 /* PUT user modification. */
-router.put("/user/:userId", (req, res,) => {
-    res.send("")
+router.put("/user/:userId", jsonParser, (req, res,) => {
+    res.send("working");
 })
 
 /* DELETE user from DB. */
-router.delete("/user/:userId", (req, res,) => {
-    res.send("")
+router.delete("/user/:userId", jsonParser, (req, res,) => {
+    res.send('working');
+    // db.connection.query(`DELETE FROM users WHERE id=${req.params.userId};`, (err, rows) => {
+    //     if(err) throw err;
+    //     res.json(rows);
+    // })
 })
 
 module.exports = router
