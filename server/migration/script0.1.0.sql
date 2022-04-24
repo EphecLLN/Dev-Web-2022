@@ -1,12 +1,18 @@
+-- Migration file init -> v0.1.0
+
 -- Listage de la structure de la base pour site-hero
-CREATE DATABASE IF NOT EXISTS `site-hero` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE IF NOT EXISTS `site-hero`
+    DEFAULT CHARACTER SET utf8mb4
+    COLLATE utf8mb4_general_ci
+    /*!80016 DEFAULT ENCRYPTION='N' */
+;
 USE `site-hero`;
 
 -- Listage de la structure de la table site-hero. users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` mediumint NOT NULL AUTO_INCREMENT,
-  `pseudo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `PASSWORD` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `pseudo` varchar(50) NOT NULL,
+  `PASSWORD` binary(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
@@ -23,8 +29,8 @@ CREATE TABLE IF NOT EXISTS `scenario` (
 -- Listage de la structure de la table site-hero. inventaire
 CREATE TABLE IF NOT EXISTS `inventaire` (
   `id` mediumint NOT NULL AUTO_INCREMENT,
-  `objet` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `nom` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `objet` varchar(50) NOT NULL,
+  `nom` varchar(20) NOT NULL,
   `id_scenario` mediumint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk__scenario` (`id_scenario`),
