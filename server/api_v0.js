@@ -1,8 +1,11 @@
 const express = require("express")
+var bodyParser = require('body-parser')
 const router = express.Router()
 const db = require("./database");
 const cypto = require('crypto');
 
+
+var jsonParser = bodyParser.json()
 
 /* GET  */
 router.get("/", (req, res,) => {
@@ -11,20 +14,19 @@ router.get("/", (req, res,) => {
 
 /* GET users listing. */
 router.get("/users", (req, res,) => {
-    console.log('reponse requete : ' + db.query("SELECT * FROM users;"))
-    res.send(db.query("SELECT * FROM users;"))
+    db.connection.query("SELECT * FROM users;", (err, rows) => {
+        if(err) throw err;
+        res.json(rows);
+    })
 })
 
 /* POST a new user. */
-router.post("/users", (req, res,) => {
-    let pseudo = req.body.pseudo
-    let password = req.body.password
-    res.send(
-        db.connection.query(`INSERT INTO users (pseudo, password) VALUES ('${pseudo}', '${password}');`, (err, rows) => {
-            if(err) throw err;
-            console.log('The data from users table are: \n', rows);
-            connection.end();
-        });
+router.post("/users", jsonParser, (req, res,) => {
+    console.log(req.body)
+    db.connection.query(`INSERT INTO users (pseudo, password) VALUES ('${req.body.pseudo}', '${req.body.password}');`, (err, rows) => {
+        if(err) throw err;
+        res.json(rows);
+    })
 })
 
 /* PUT user modification. */
