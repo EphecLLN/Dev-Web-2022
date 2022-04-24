@@ -152,7 +152,7 @@ class Play extends Component {
             onInput={(evt) => this.setState({
               color: {
                 red: this.state.color.red,
-                green: evt.target.value, 255,
+                green: evt.target.value,
                 blue: this.state.color.blue,
               },
             })}
@@ -170,7 +170,7 @@ class Play extends Component {
               color: {
                 red: this.state.color.red,
                 green: this.state.color.green,
-                blue: evt.target.value, 255,
+                blue: evt.target.value,
               },
             })}
           />
