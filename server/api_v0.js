@@ -47,7 +47,6 @@ router.post("/register", jsonParser, (req, res,) => {
             res.json(response(false, "pseudo is already used"));
         }
     })
-    
 })
 
 /* PUT user modification. */
@@ -56,13 +55,23 @@ router.put("/user/:id", jsonParser, (req, res,) => {
 })
 
 /* DELETE user from DB. */
-router.delete("/user/:userId", jsonParser, (req, res,) => {
-    res.send('working');
-    // db.connection.query(`DELETE FROM users WHERE id=${req.params.userId};`, (err, rows) => {
-    //     if(err) throw err;
-    //     res.json(rows);
-    // })
+router.delete("/user/:id", jsonParser, (req, res,) => {
+    db.connection.query(`DELETE FROM users WHERE id=${req.params.id};`, (err, rows) => {
+        if(err) throw err;
+        res.json(response(true, "user deleted"));
+    })
+})
 
+/* login user. */
+router.post("/login", jsonParser, (req, res,) => {
+    db.connection.query(`SELECT SALT, PASSWORD FROM users WHERE pseudo='${req.body.pseudo}';`, (err, rows) => {
+        if(err) throw err;
+        if(hash.login(req.body.password,rows[0].SALT,rows[0].PASSWORD)) {
+            res.json(response(true, "you are logged in"));
+        } else {
+            res.json(response(false, "wrong password or username"));
+        }
+    })
 })
 
 module.exports = router;
