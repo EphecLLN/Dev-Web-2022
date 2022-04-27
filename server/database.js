@@ -1,4 +1,4 @@
-const { DB_USER, DB_PASSWORD } = require("mysql")
+const { DB_USER, DB_PASSWORD } = require("./env")
 const mysql = require("mysql")
 
 const connection = mysql.createConnection({
