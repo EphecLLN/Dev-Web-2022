@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const path = require("path")
 const debug = require("debug")("dev-web-2022:server")
 
