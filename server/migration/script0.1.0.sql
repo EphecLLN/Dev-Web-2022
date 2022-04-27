@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `scenario` (
 ) ENGINE=InnoDB;
 
 -- Listage de la structure de la table site-hero. inventaire
-CREATE TABLE IF NOT EXISTS `inventaire` (
+CREATE TABLE IF NOT EXISTS `inventory` (
   `id` mediumint NOT NULL AUTO_INCREMENT,
   `objet` varchar(50) NOT NULL,
   `nom` varchar(20) NOT NULL,
