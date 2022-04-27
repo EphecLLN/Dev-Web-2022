@@ -64,10 +64,17 @@ router.delete("/user/:id", jsonParser, (req, res,) => {
 
 /* login user. */
 router.post("/login", jsonParser, (req, res,) => {
-    db.connection.query(`SELECT SALT, PASSWORD FROM users WHERE pseudo='${req.body.pseudo}';`, (err, rows) => {
+    db.connection.query(`SELECT pseudo FROM users WHERE pseudo=${db.connection.escape(req.body.pseudo)};`, (err, rows) => {
         if(err) throw err;
-        if(hash.login(req.body.password,rows[0].SALT,rows[0].PASSWORD)) {
-            res.json(response(true, "you are logged in"));
+        if(rows.length == 0) {
+            db.connection.query(`SELECT SALT, PASSWORD FROM users WHERE pseudo='${req.body.pseudo}';`, (err, rows) => {
+                if(err) throw err;
+                if(hash.login(req.body.password,rows[0].SALT,rows[0].PASSWORD)) {
+                    res.json(response(true, "you are logged in"));
+                } else {
+                    res.json(response(false, "wrong password or username"));
+                }
+            })
         } else {
             res.json(response(false, "wrong password or username"));
         }
