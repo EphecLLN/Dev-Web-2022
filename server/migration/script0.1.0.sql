@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` mediumint NOT NULL AUTO_INCREMENT,
   `pseudo` varchar(50) NOT NULL,
   `PASSWORD` binary(64) NOT NULL,
+  `SALT` varchar(16) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 

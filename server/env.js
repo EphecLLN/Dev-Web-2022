@@ -28,4 +28,6 @@ module.exports = {
   IS_PROD: node_env === "production",
   IS_DEV: node_env === "development",
   NODE_ENV: node_env,
+  DB_USER: process.env.DB_USER || 'root',
+  DB_PASSWORD: process.env.DB_PASSWORD
 }
