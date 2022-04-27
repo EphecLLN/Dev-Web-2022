@@ -1,12 +1,13 @@
 // This module defines the implementation of our simplistic protocol for
 // exchanging event messages during a game
 
+import { EventNames } from "@socket.io/component-emitter"
 import {io as IOClient,
     ManagerOptions,
     Socket as ClientSocket,
     SocketOptions} from "socket.io-client"
-import { Color } from "./color"
-import { Opaque } from "./types"
+import { ColorStr } from "./color"
+import { Opaque, WithLength } from "./types"
 
 /**
  * Protocol version
@@ -77,7 +78,7 @@ export type Ack<Success, Fail = {}> =
  * `Client` to `Server` events
  */
 interface C2SEvents {
-    connection(socket: Socket): void
+    connection(socket: ClientSocket): void
 
     disconnect(reason: DisconnectReason): void
 
