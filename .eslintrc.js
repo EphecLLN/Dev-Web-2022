@@ -32,7 +32,38 @@ module.exports = {
   rules: {
     "semi": ["error", "never"],
     "quotes": ["error", "double"],
+    "max-len": ["error", {
+      code: 80,
+      tabWidth: 4,
+      ignoreComments: false,
+      ignoreTrailingComments: false,
+      ignoreStrings: false,
+      ignoreTemplateLiterals: false,
+      ignoreRegExpLiterals: false,
+    }],
+    "max-depth": ["error", 6],
+    "complexity": ["error", 5],
     "prefer-arrow-callback": "error",
+    "function-paren-newline": ["error", "multiline-arguments"],
+    "function-call-argument-newline": ["error", "consistent"],
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 3 }],
+    "object-curly-newline": [
+      "error", {
+        "ObjectExpression": {
+          multiline: true,
+          consistent: true,
+          minProperties: 4,
+        },
+        "ObjectPattern": { consistent: true },
+        "ImportDeclaration": "never",
+        "ExportDeclaration": {
+          "multiline": true,
+          "minProperties": 3,
+        },
+      },
+    ],
+    "array-bracket-newline": ["error", { multiline: true }],
+    "react/prop-types": ["error", { skipUndeclared: true }],
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",

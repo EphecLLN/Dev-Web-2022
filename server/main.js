@@ -12,7 +12,7 @@ const http = require("http")
 const express = require("express")
 const webpack = require("webpack")
 const { SocketIOServer } = require("./sockets")
-const api = require('./api_v0')
+const api = require("./api_v0")
 
 let port
 if (IS_DEV) {
@@ -38,7 +38,7 @@ class App {
     app.get("/", (req, res) => {
       res.sendFile("index.html")
     })
-    app.use('/api_v0', api)
+    app.use("/api_v0", api)
     // Insert hot-reload middleware if in development mode
     if (IS_DEV) {
       const config = require("../webpack.config.dev.js")
