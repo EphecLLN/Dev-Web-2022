@@ -19,6 +19,7 @@ class SocketIOServer {
     socket.on("authenticate", (p, a) => this.onAuthenticate(socket, p, a))
     socket.on("refresh", (p, a) => this.onRefresh(socket, p, a))
     socket.on("chatMessage", p => this.onChatMessage(socket, p))
+    socket.on("sendPoll", p => this.onSendPoll(socket, p))
     socket.on("disconnect", () => this.onDisconnect(socket))
   }
 
@@ -57,6 +58,16 @@ class SocketIOServer {
       this.#server.emit(
         "broadcastMessage",
         Object.assign({ msg }, this.#clients[socket.id]),
+      )
+    }
+  }
+
+  onSendPoll (socket, {token, text, choices}) {
+    if (this.#auth.validateAccess(socket.id, token)) {
+      console.log(`User ${this.#clients[socket.id].name} created a poll: ${text} ${choices}`)
+      this.#server.emit(
+        "broadcastPoll",
+        Object.assign({ text,choices }, this.#clients[socket.id]),
       )
     }
   }
