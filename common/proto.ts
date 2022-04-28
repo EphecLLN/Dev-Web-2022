@@ -1,12 +1,13 @@
 // This module defines the implementation of our simplistic protocol for
 // exchanging event messages during a game
 
+import { EventNames } from "@socket.io/component-emitter"
 import {io as IOClient,
     ManagerOptions,
     Socket as ClientSocket,
     SocketOptions} from "socket.io-client"
-import { Color } from "./color"
-import { Opaque } from "./types"
+import { ColorStr } from "./color"
+import { Opaque, WithLength } from "./types"
 
 /**
  * Protocol version
@@ -77,7 +78,7 @@ export type Ack<Success, Fail = {}> =
  * `Client` to `Server` events
  */
 interface C2SEvents {
-    connection(socket: Socket): void
+    connection(socket: ClientSocket): void
 
     disconnect(reason: DisconnectReason): void
 
@@ -91,6 +92,10 @@ interface C2SEvents {
     refresh(token: RefreshToken, ack: TokenAck): void
 
     chatMessage(payload: { token: AccessToken, msg: string }): void
+
+    sendPoll(
+      payload: {token: AccessToken, text: string, choices: string[]}
+    ): void
 }
 
 /**
@@ -100,6 +105,8 @@ interface S2CEvents {
     broadcastMessage(
         payload: { name: Name, color: ColorStr, msg: string }
     ): void
+
+    broadcastPoll(payload: {text: string, choices: string[]}): void
 }
 
 /**
@@ -117,6 +124,7 @@ export class Client {
         this.socket = (uri === null) ? IOClient(opts) : IOClient(uri, opts)
     }
 
+    // FIXME: correct payload type
     send(event: EventNames<C2SEvents>, payload: any) {
         return new Promise((resolve, reject) => {
             this.socket.emit(event, payload,

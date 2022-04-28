@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import { Color } from "../../common/color"
 import { Client } from "../../common/proto"
 
+const PREFIX = "/poll"
+
 class Play extends Component {
   client
   access = { time: 0 }
@@ -16,6 +18,7 @@ class Play extends Component {
       green: 50,
       blue: 250,
     },
+    poll: null,
   }
 
   constructor (props) {
@@ -31,6 +34,14 @@ class Play extends Component {
       messages.push(message)
       this.setState({ messages: messages })
       window.scrollTo(0, document.body.scrollHeight)
+    })
+    this.client.socket.on("broadcastPoll", (poll) => {
+      const {
+        text,
+        choices,
+      } = poll
+      console.log(`received from poll: ${text} ${choices}`)
+      this.setState({poll})
     })
   }
 
@@ -98,13 +109,27 @@ class Play extends Component {
         evt.preventDefault()
         if (input.value) {
           this.authContext().then((token) => {
-            this.client.send("chatMessage", {
-              token,
-              msg: input.value,
-            })
+            // check command poll
+            if(input.value.startsWith(PREFIX)){
+              let args = input.value.substring(PREFIX.length).split(",")
+              let [,text,...choices] = args
+              this.client.send("sendPoll", {
+                token,
+                text: text,
+                choices: choices
+              })
+              console.log(`Sent event "sendPoll": ${text} ${choices}`)
+            }
+            else{
+              this.client.send("chatMessage", {
+                token,
+                msg: input.value,
+              })
+
+              console.log(`Sent event "chatMessage": ${input.value}`)
+            }
             input.value = ""
           })
-          console.log(`Sent event "chatMessage": ${input.value}`)
         }
       })
     }
@@ -209,7 +234,10 @@ class Play extends Component {
                   color,
                   msg,
                 }, i) => <li key={i + 1} className="row">
-                  <div className="col-2 is-center" style={{ background: color }}>
+                  <div
+                    className="col-2 is-center"
+                    style={{ background: color }}
+                  >
                     {name}
                   </div>
                   <div className="col is-left">{msg}</div>
@@ -218,6 +246,26 @@ class Play extends Component {
             </ul>
           </div>
         </div>
+        {this.state.poll && 
+          <ul className="container">
+            <li key={0} className="row is-center">
+              {this.state.poll.text}
+            </li>
+              {this.state.poll.choices.map((text, i) => { 
+                return(
+                  <li key={i+1} className="row is-center">
+                    <input
+                      className="col-4 is-left button primary"
+                      type="submit"
+                      value={text}
+                      id={`poll-choce-${i}`}
+                    />
+                  </li>
+                )
+                })
+              }
+          </ul>
+        } 
         <form className="row is-full-width" id="form-msg">
           <input
             className="col is-rounded"
