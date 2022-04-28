@@ -18,6 +18,7 @@ class Play extends Component {
       green: 50,
       blue: 250,
     },
+    poll: null,
   }
 
   constructor (props) {
@@ -33,6 +34,14 @@ class Play extends Component {
       messages.push(message)
       this.setState({ messages: messages })
       window.scrollTo(0, document.body.scrollHeight)
+    })
+    this.client.socket.on("broadcastPoll", (poll) => {
+      const {
+        text,
+        choices,
+      } = poll
+      console.log(`received from poll: ${text} ${choices}`)
+      this.setState({poll})
     })
   }
 
@@ -234,6 +243,26 @@ class Play extends Component {
             </ul>
           </div>
         </div>
+        {this.state.poll && 
+          <ul className="container">
+            <li key={0} className="row is-center">
+              {this.state.poll.text}
+            </li>
+              {this.state.poll.choices.map((text, i) => { 
+                return(
+                  <li key={i+1} className="row is-center">
+                    <input
+                      className="col-4 is-left button primary"
+                      type="submit"
+                      value={text}
+                      id={`poll-choce-${i}`}
+                    />
+                  </li>
+                )
+                })
+              }
+          </ul>
+        } 
         <form className="row is-full-width" id="form-msg">
           <input
             className="col is-rounded"
