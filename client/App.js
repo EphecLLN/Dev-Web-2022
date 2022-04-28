@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import Home from "./pages"
 import About from "./pages/about"
 import Play from "./pages/team"
-import Creation from "./pages/creation";
+import Creation from "./pages/creation"
 
 function App() {
   return (
