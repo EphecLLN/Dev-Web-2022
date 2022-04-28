@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import { Color } from "../../common/color"
 import { Client } from "../../common/proto"
 
+const PREFIX = "/poll"
+
 class Play extends Component {
   client
   access = { time: 0 }
@@ -98,13 +100,27 @@ class Play extends Component {
         evt.preventDefault()
         if (input.value) {
           this.authContext().then((token) => {
-            this.client.send("chatMessage", {
-              token,
-              msg: input.value,
-            })
+            // check command poll
+            if(input.value.startsWith(PREFIX)){
+              let args = input.value.substring(PREFIX.length).split(",")
+              let [,text,...choices] = args
+              this.client.send("sendPoll", {
+                token,
+                text: text,
+                choices: choices
+              })
+              console.log(`Sent event "sendPoll": ${text} ${choices}`)
+            }
+            else{
+              this.client.send("chatMessage", {
+                token,
+                msg: input.value,
+              })
+
+              console.log(`Sent event "chatMessage": ${input.value}`)
+            }
             input.value = ""
           })
-          console.log(`Sent event "chatMessage": ${input.value}`)
         }
       })
     }
