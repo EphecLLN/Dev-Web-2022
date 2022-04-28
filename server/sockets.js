@@ -64,7 +64,10 @@ class SocketIOServer {
 
   onSendPoll (socket, {token, text, choices}) {
     if (this.#auth.validateAccess(socket.id, token)) {
-      console.log(`User ${this.#clients[socket.id].name} created a poll: ${text} ${choices}`)
+      console.log(
+        `User ${this.#clients[socket.id].name} created a poll: `
+        + `${text} ${choices}`
+      )
       this.#server.emit(
         "broadcastPoll",
         Object.assign({ text,choices }, this.#clients[socket.id]),

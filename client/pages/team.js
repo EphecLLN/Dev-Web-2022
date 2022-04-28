@@ -234,7 +234,10 @@ class Play extends Component {
                   color,
                   msg,
                 }, i) => <li key={i + 1} className="row">
-                  <div className="col-2 is-center" style={{ background: color }}>
+                  <div
+                    className="col-2 is-center"
+                    style={{ background: color }}
+                  >
                     {name}
                   </div>
                   <div className="col is-left">{msg}</div>
