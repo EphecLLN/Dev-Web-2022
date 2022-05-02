@@ -1,0 +1,26 @@
+[book]
+title = "Dev Web 2022"
+description = "A cooperative multiplayer online RPG"
+authors = [
+  "Morgane Leclerc <dev@austreelis.net>",
+  "Severin Robert",
+  "Simon Nol",
+  "Saskia Libotte"
+]
+language = "fr"
+
+[output.html]
+mathjax-support = true
+cname = "austreelis.github.io"
+site-url = "/Dev-Wev-2022/"
+git-repository-url = "https://github.com/Austreelis/dev-web-2022/tree/main/doc/book"
+edit-url-template = "https://github.com/Austreelis/dev-web-2022/tree/main/doc/book/{path}"
+
+[output.html.search]
+limit-results = 20
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 2
+boost-paragraph = 1
+expand = true
+heading-split-level = 2
