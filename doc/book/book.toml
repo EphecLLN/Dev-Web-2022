@@ -13,8 +13,8 @@ language = "en"
 mathjax-support = true
 cname = "austreelis.github.io"
 site-url = "/WebsiteWhereYouAreTheHero/"
-git-repository-url = "https://github.com/Austreelis/dev-web-2022/tree/main/doc/book"
-edit-url-template = "https://github.com/Austreelis/dev-web-2022/tree/main/doc/book/{path}"
+git-repository-url = "https://github.com/Austreelis/WebsiteWhereYouAreTheHero/tree/main/doc/book"
+edit-url-template = "https://github.com/Austreelis/WebsiteWhereYouAreTheHero/tree/main/doc/book/{path}"
 
 [output.html.search]
 limit-results = 20

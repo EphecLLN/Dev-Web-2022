@@ -1,8 +1,14 @@
 # Website Where You Are The Hero
 
-# Annexes
+[Introduction](README.md)
 
-[Websocket protocol](./specs/websocket-procol.md)
-[Scenario schema](./specs/scenario-schema.md)
+# Wiki
+
+- [Accueil](wiki/accueil.md)
+
+---
+
+[Websocket protocol](specs/websocket-protocol.md)
+[Scenario schema](specs/scenario-schema.md)
 
 
