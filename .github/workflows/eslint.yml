@@ -2,9 +2,11 @@ name: Lint
 
 on:
   pull_request:
+  label:
+    types: [created, edited]
   push:
     branches:
-      - master
+      - main
 
 jobs:
   eslint-js:
