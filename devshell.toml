@@ -2,6 +2,10 @@
 name = "dev-web-2022"
 
 [[commands]]
+name = "mdbook"
+package = "mdbook"
+
+[[commands]]
 name = "npm"
 category = "Node"
 help = "The NodeJS package manager"
@@ -43,6 +47,13 @@ name = "dev"
 category = "Node"
 help = "Start continuous rebuild and serve the website"
 command = "npm run dev"
+
+[devshell.startup.mdbook-completions]
+text = '''
+mkdir -p "$PRJ_DATA_DIR"/bash-completions
+mdbook completions bash > "$PRJ_DATA_DIR"/bash-completions/mdbook
+source "$PRJ_DATA_DIR"/bash-completions/mdbook
+'''
 
 [devshell.startup.install-node-deps]
 text = 'npm install --prefix "$PRJ_ROOT"'

@@ -15,6 +15,12 @@
 # Webpack builds
 /dist
 
+# mdbook builds
+doc/book/build/
+
+# devshell
+.data/
+
 # misc
 .DS_Store
 .env*
