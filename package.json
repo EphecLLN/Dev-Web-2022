@@ -8,9 +8,9 @@
     "build": "cross-env NODE_ENV=development && webpack -c webpack.config.dev.js",
     "dev": "(npm run watch &) && npm run serve",
     "serve": "cross-env NODE_ENV=development && node server/main.js",
-    "integration": "jest --config tests/integration/jest.config.js --coverage",
-    "lint": "eslint -c .eslintrc.js --ext .js --no-error-on-unmatched-pattern server client common tests && eslint -c .eslintrc.ts.js --ext .ts --no-error-on-unmatched-pattern server client common tests",
-    "unit": "jest --config tests/unit/jest.config.js --coverage",
+    "integration": "jest --config tests/integration/jest.config.js",
+    "lint": "eslint .",
+    "unit": "jest --config tests/unit/jest.config.js",
     "validation": "cucumber-js -c ./cucumber.js tests/validation",
     "watch": "cross-env NODE_ENV=development && webpack -c webpack.config.dev.js --watch"
   },

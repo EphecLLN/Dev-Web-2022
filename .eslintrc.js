@@ -5,6 +5,10 @@ module.exports = {
     commonjs: true,
     es2021: true,
   },
+  plugins: [
+    "jest",
+    "react",
+  ],
   extends: [
     "eslint:recommended",
     "plugin:jest/recommended",
@@ -17,10 +21,6 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: [
-    "jest",
-    "react",
-  ],
   settings: {
     jest: {
       version: require("jest/package.json").version,
@@ -32,21 +32,23 @@ module.exports = {
   rules: {
     "semi": ["error", "never"],
     "quotes": ["error", "double"],
-    "max-len": ["error", {
-      code: 80,
-      tabWidth: 4,
-      ignoreComments: false,
-      ignoreTrailingComments: false,
-      ignoreStrings: false,
-      ignoreTemplateLiterals: false,
-      ignoreRegExpLiterals: false,
-    }],
+    "max-len": [
+      "error", {
+        code: 80,
+        tabWidth: 4,
+        ignoreComments: false,
+        ignoreTrailingComments: false,
+        ignoreStrings: false,
+        ignoreTemplateLiterals: false,
+        ignoreRegExpLiterals: false,
+      }
+    ],
     "max-depth": ["error", 6],
     "complexity": ["error", 5],
     "prefer-arrow-callback": "error",
     "function-paren-newline": ["error", "multiline-arguments"],
     "function-call-argument-newline": ["error", "consistent"],
-    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 3 }],
+    "newline-per-chained-call": ["error", {"ignoreChainWithDepth": 3}],
     "object-curly-newline": [
       "error", {
         "ObjectExpression": {
@@ -54,7 +56,7 @@ module.exports = {
           consistent: true,
           minProperties: 4,
         },
-        "ObjectPattern": { consistent: true },
+        "ObjectPattern": {consistent: true},
         "ImportDeclaration": "never",
         "ExportDeclaration": {
           "multiline": true,
@@ -62,12 +64,33 @@ module.exports = {
         },
       },
     ],
-    "array-bracket-newline": ["error", { multiline: true }],
-    "react/prop-types": ["error", { skipUndeclared: true }],
+    "array-bracket-newline": ["error", {multiline: true}],
+    "react/prop-types": ["error", {skipUndeclared: true}],
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
     "jest/prefer-to-have-length": "warn",
     "jest/valid-expect": "error",
   },
+  overrides: [
+    {
+      files: ["*.ts", "*.tsx"],
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: ["./tsconfig.json"],
+      },
+      plugins: [
+        "jest",
+        "react",
+        "@typescript-eslint",
+      ],
+      extends: [
+        "eslint:recommended",
+        "plugin:jest/recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+      ],
+    }
+  ],
 }
