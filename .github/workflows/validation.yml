@@ -1,0 +1,23 @@
+name: Lint
+
+on:
+  pull_request:
+  label:
+    types: [created, edited]
+  push:
+    branches:
+      - main
+
+jobs:
+  eslint-js:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
+      - run: npm run validation
+
+
+
