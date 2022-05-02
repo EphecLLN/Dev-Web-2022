@@ -7,12 +7,12 @@ authors = [
   "Simon Nol",
   "Saskia Libotte"
 ]
-language = "fr"
+language = "en"
 
 [output.html]
 mathjax-support = true
 cname = "austreelis.github.io"
-site-url = "/Dev-Wev-2022/"
+site-url = "/WebsiteWhereYouAreTheHero/"
 git-repository-url = "https://github.com/Austreelis/dev-web-2022/tree/main/doc/book"
 edit-url-template = "https://github.com/Austreelis/dev-web-2022/tree/main/doc/book/{path}"
 
