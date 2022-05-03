@@ -4,7 +4,7 @@
 
 Nom | Pseudo Github | US décrite | US implémentée 
 --- | ------------- | ---------- | -------------- 
-Morgane| Austreelis | [US 17](https://github.com/Austreelis/Dev-Web-2022/issues/21) | [US 12](https://github.com/Austreelis/Dev-Web-2022/issues/12) 
+Morgane| Austreelis | [US 17](https://github.com/Austreelis/Dev-Web-2022/issues/21) | [US 8](https://github.com/Austreelis/Dev-Web-2022/issues/12) 
 Saskia | saskia-libotte | [US 5](https://github.com/Austreelis/Dev-Web-2022/issues/9) | [US 2](https://github.com/Austreelis/Dev-Web-2022/issues/6) 
 Simon | simonNolf | [US 2](https://github.com/Austreelis/Dev-Web-2022/issues/6) | [US 17](https://github.com/Austreelis/Dev-Web-2022/issues/21)
 Séverin | severinRobert | [US 12](https://github.com/Austreelis/Dev-Web-2022/issues/12) | [US 5](https://github.com/Austreelis/Dev-Web-2022/issues/9)
