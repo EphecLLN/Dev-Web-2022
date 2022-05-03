@@ -1,5 +1,5 @@
 /* eslint-disable prefer-arrow-callback */
-const { Given, When, Then, defineParameterType } = require("@cucumber/cucumber")
+const { Given, When, Then } = require("@cucumber/cucumber")
 
 Given("an authentication form is displayed", function() {
   return "pending"

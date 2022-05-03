@@ -10,7 +10,7 @@ Before(() => {
   spec = pactum.spec()
 })
 
-Given("the following users exist:", function (dataTable) {
+Given("the following users exist:", function (_dataTable) {
   return "pending"
 })
 
@@ -36,10 +36,10 @@ Then("response has status {int}", function (status) {
   spec.response().to.have.status(status)
 })
 
-Then("response data is:", function (dataTable) {
+Then("response data is:", function (_dataTable) {
   return "pending"
 })
 
-Then("response has no data attached", function (dataTable) {
+Then("response has no data attached", function (_dataTable) {
   return "pending"
 })

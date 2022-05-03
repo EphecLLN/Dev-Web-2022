@@ -45,6 +45,13 @@ module.exports = {
     ],
     "max-depth": ["error", 6],
     "complexity": ["error", 5],
+    "no-unused-vars": [
+      "error", {
+        varsIgnorePattern: "^_",
+        argsIgnorePattern: "^_",
+        destructuredArrayIgnorePattern: "^_",
+      }
+    ],
     "prefer-arrow-callback": "error",
     "function-paren-newline": ["error", "multiline-arguments"],
     "function-call-argument-newline": ["error", "consistent"],
