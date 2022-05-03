@@ -4,6 +4,7 @@ on:
       - eslint
     branches:
       - main
+      - dependabot/**
     types:
       - completed
 
