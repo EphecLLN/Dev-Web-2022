@@ -1,4 +1,4 @@
-name: Lint
+name: validation-tests
 
 on:
   pull_request:
