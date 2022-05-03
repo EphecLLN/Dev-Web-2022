@@ -22,4 +22,4 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           merge-method: squash
-          target: preminor
+          target: any
