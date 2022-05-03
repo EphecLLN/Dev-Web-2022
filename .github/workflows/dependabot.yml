@@ -1,7 +1,7 @@
 on:
   workflow_run:
     workflows:
-      - eslint
+      - eslint.yml
     branches:
       - main
       - dependabot/**
