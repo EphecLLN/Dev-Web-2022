@@ -14,7 +14,7 @@ mathjax-support = true
 cname = "austreelis.github.io"
 site-url = "/WebsiteWhereYouAreTheHero/"
 git-repository-url = "https://github.com/Austreelis/WebsiteWhereYouAreTheHero/tree/main/doc/book"
-edit-url-template = "https://github.com/Austreelis/WebsiteWhereYouAreTheHero/tree/main/doc/book/{path}"
+edit-url-template = "https://github.com/Austreelis/WebsiteWhereYouAreTheHero/edit/main/doc/book/{path}"
 
 [output.html.search]
 limit-results = 20
