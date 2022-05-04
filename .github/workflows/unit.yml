@@ -10,6 +10,7 @@ on:
 
 jobs:
   unit:
+    name: unit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
