@@ -12,7 +12,7 @@ const http = require("http")
 const express = require("express")
 const webpack = require("webpack")
 const { SocketIOServer } = require("./sockets")
-const api = require("./api_v0")
+const api = require("./api/v0/routes")
 
 let port
 if (IS_DEV) {
