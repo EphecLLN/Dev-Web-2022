@@ -19,6 +19,7 @@ class Play extends Component {
       blue: 250,
     },
     poll: null,
+    inventory: [],
   }
 
   constructor (props) {
@@ -225,6 +226,17 @@ class Play extends Component {
       }
       {this.state.loggedIn &&
       <div className="container">
+        <div className="row">
+          <details className="dropdown col-2">
+            <summary className="button is-full-width">inventory</summary>
+              <div className="card is-full-width">
+                {this.state.inventory.map(({ id, objet, nom}, i) => (
+                  <p key={i+1}><a id={1} title={"test"}>
+                    {'coucou'}</a></p>
+                  ))}
+              </div>
+            </details>
+        <div className="container col">
         <div className="row">
           <div className="col">
             <ul className="container" id="messages">
