@@ -43,6 +43,7 @@ module.exports = {
         ignoreRegExpLiterals: false,
       }
     ],
+    "indent": ["error", 2],
     "max-depth": ["error", 6],
     "complexity": ["error", 5],
     "no-unused-vars": [
