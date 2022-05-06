@@ -1,8 +1,11 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const router = express.Router()
-const db = require("./database")
-const hash = require("./hash")
+const db = require("../../database")
+const hash = require("../../hash")
+const inventory = require("./inventory")
+
+router.use("/inventory", inventory)
 
 
 let jsonParser = bodyParser.json()

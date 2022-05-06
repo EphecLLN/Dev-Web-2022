@@ -104,6 +104,12 @@ class Play extends Component {
   // noinspection JSCheckFunctionSignatures
   componentDidUpdate (prevProps, prevState) {
     if (prevState.loggedIn === false && this.state.loggedIn) {
+      fetch("/api_v0/inventory/1")
+      .catch(console.log)
+      .then((response) => response.json())
+      .then((inventories) => {
+        this.setState({inventory : inventories})
+        })
       const form = document.getElementById("form-msg")
       const input = document.getElementById("input-msg")
       form.addEventListener("submit", (evt) => {
@@ -231,16 +237,16 @@ class Play extends Component {
             <summary className="button is-full-width">inventory</summary>
               <div className="card is-full-width">
                 {this.state.inventory.map(({ id, objet, nom}, i) => (
-                  <p key={i+1}><a id={1} title={"test"}>
-                    {'coucou'}</a></p>
+                  <p key={i+1}><a id={id} title={objet}>
+                    {nom}</a></p>
                   ))}
               </div>
             </details>
         <div className="container col">
         <div className="row">
           <div className="col">
-            <ul className="container" id="messages">
-              {
+             <ul className="container" id="messages">
+                {
                 this.state.messages.map(({
                   name,
                   color,
