@@ -1,7 +1,8 @@
 const webpack = require("webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin")
+const ReactRefreshWebpackPlugin =
+  require("@pmmmwh/react-refresh-webpack-plugin")
 
 module.exports = {
   mode: "development",

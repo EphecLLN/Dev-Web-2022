@@ -1,7 +1,7 @@
 // This module defines the implementation of our simplistic protocol for
 // exchanging event messages during a game
 
-import { EventNames } from "@socket.io/component-emitter"
+import { EventNames, EventParams } from "@socket.io/component-emitter"
 import {io as IOClient,
     ManagerOptions,
     Socket as ClientSocket,
@@ -66,12 +66,12 @@ export type AckResponse<Success, Fail> =
  * TODO
  */
 export type TokenAck =
-    Ack<{ access: AccessToken, refresh?: RefreshToken }>
+    Ack<{ access: AccessToken, refresh?: RefreshToken }, Record<string, never>>
 
 /**
  * TODO
  */
-export type Ack<Success, Fail = {}> =
+export type Ack<Success, Fail> =
     (response: AckResponse<Success, Fail>) => void
 
 /**
@@ -116,7 +116,8 @@ export class Client {
     private socket: ClientSocket<S2CEvents, C2SEvents>
 
     constructor(
-        uri?: string, opts: Partial<ManagerOptions & SocketOptions> = {}
+      uri?: string,
+      opts: Partial<ManagerOptions & SocketOptions> = {}
     ) {
         // Forces a new connection to be opened rather than re-using a
         // pre-existing manager
@@ -125,21 +126,26 @@ export class Client {
     }
 
     // FIXME: correct payload type
-    send(event: EventNames<C2SEvents>, payload: any) {
+    send<E extends EventNames<C2SEvents>>(
+      event: E,
+      payload: Parameters<C2SEvents[E]>,
+    ): Promise<Parameters<EventParams<C2SEvents, E>[1]>> {
+
         return new Promise((resolve, reject) => {
-            this.socket.emit(event, payload,
-                (response: any | AckResponse<{}, {}>) => {
-                    if (typeof response === "object" && "success" in response) {
-                        if (response.success) {
-                            resolve(response)
-                        } else {
-                            reject(response)
-                        }
-                    } else {
-                        reject(`Bad response: ${response}`)
-                    }
-                }
-            )
+          this.socket.emit(
+            event,
+            payload,
+            (response: AckResponse<
+              Record<string, unknown>,
+              Record<string, unknown>
+            >) => {
+              if (response.success) {
+                  resolve(response)
+              } else {
+                  reject(response)
+              }
+            }
+          )
         })
     }
 }
