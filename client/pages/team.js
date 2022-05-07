@@ -293,8 +293,10 @@ class Play extends Component {
           </div>
         </div>
       </div>
+      </div>
+      </div>
       }
-    </div>
+      </div>
   }
 }
 
