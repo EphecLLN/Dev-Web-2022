@@ -106,10 +106,10 @@ class Play extends Component {
   componentDidUpdate (prevProps, prevState) {
     if (prevState.loggedIn === false && this.state.loggedIn) {
       fetch("/api_v0/inventory/1")
-      .catch(console.log)
-      .then((response) => response.json())
-      .then((inventories) => {
-        this.setState({inventory : inventories})
+        .catch(console.log)
+        .then((response) => response.json())
+        .then((inventories) => {
+          this.setState({inventory : inventories})
         })
       const form = document.getElementById("form-msg")
       const input = document.getElementById("input-msg")
@@ -234,63 +234,67 @@ class Play extends Component {
       {this.state.loggedIn &&
       <div className="container">
         <div className="row">
-          <Inventory inv={this.state.inventory} setInv={(inventory) => this.setState({inventory})}/>
-        <div className="container col">
-        <div className="row">
-          <div className="col">
-             <ul className="container" id="messages">
-                {
-                this.state.messages.map(({
-                  name,
-                  color,
-                  msg,
-                }, i) => <li key={i + 1} className="row">
-                  <div
-                    className="col-2 is-center"
-                    style={{ background: color }}
-                  >
-                    {name}
-                  </div>
-                  <div className="col is-left">{msg}</div>
-                </li>)
-              }
-            </ul>
-          </div>
-        </div>
-        {this.state.poll && 
+          <Inventory 
+            inv={this.state.inventory} 
+            setInv={(inventory) => this.setState({inventory})}/>
+          <div className="container col">
+            <div className="row">
+              <div className="col">
+                <ul className="container" id="messages">
+                  {
+                    this.state.messages.map(({
+                      name,
+                      color,
+                      msg,
+                    }, i) => <li key={i + 1} className="row">
+                      <div
+                        className="col-2 is-center"
+                        style={{ background: color }}
+                      >
+                        {name}
+                      </div>
+                      <div className="col is-left">{msg}</div>
+                    </li>)
+                  }
+                </ul>
+              </div>
+            </div>
+            {this.state.poll && 
           <ul className="container">
             <li key={0} className="row is-center">
               {this.state.poll.text}
             </li>
-              {this.state.poll.choices.map((text, i) => { 
-                return(
-                  <li key={i+1} className="row is-center">
-                    <input
-                      className="col-4 is-left button primary"
-                      type="submit"
-                      value={text}
-                      id={`poll-choce-${i}`}
-                    />
-                  </li>
-                )
-                })
-              }
+            {this.state.poll.choices.map((text, i) => { 
+              return(
+                <li key={i+1} className="row is-center">
+                  <input
+                    className="col-4 is-left button primary"
+                    type="submit"
+                    value={text}
+                    id={`poll-choce-${i}`}
+                  />
+                </li>
+              )
+            })
+            }
           </ul>
-        } 
-        <form className="row is-full-width" id="form-msg">
-          <input
-            className="col is-rounded"
-            id="input-msg"
-            autoComplete="off"
-            type="text"
-          />
-          <input className="col-1 button primary" type="submit" value="Send"/>
-        </form>
-      </div>
-      </div>
+            } 
+            <form className="row is-full-width" id="form-msg">
+              <input
+                className="col is-rounded"
+                id="input-msg"
+                autoComplete="off"
+                type="text"
+              />
+              <input 
+                className="col-1 button primary" 
+                type="submit" value="Send"/>
+            </form>
+          </div>
+        </div>
       </div>
       }
-      </div>
+    </div>
   }
 }
 
