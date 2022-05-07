@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Color } from "../../common/color"
 import { Client } from "../../common/proto"
+import { Inventory } from "../components/inventory"
 
 const PREFIX = "/poll"
 
@@ -233,17 +234,7 @@ class Play extends Component {
       {this.state.loggedIn &&
       <div className="container">
         <div className="row">
-          <details className="dropdown col-2">
-            <summary className="button is-full-width">inventory</summary>
-              <div className="card is-full-width">
-                {this.state.inventory.map(({ id, objet, nom}, i) => (
-                  <p key={i+1}><a id={id} title={objet} onClick={(event) => {
-                    this.setState({ inventory: this.state.inventory.filter(del => del.id != id) })
-                  }}>
-                    {nom}</a></p>
-                  ))}
-              </div>
-            </details>
+          <Inventory inv={this.state.inventory} setInv={(inventory) => this.setState({inventory})}/>
         <div className="container col">
         <div className="row">
           <div className="col">
