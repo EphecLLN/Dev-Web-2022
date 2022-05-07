@@ -1,6 +1,6 @@
 import React from "react"
 
-export const Inventory = ({inv, setInv}) => { 
+export const Inventory = ({inv, setInv}) => {
   return <details className="dropdown col-2">
     <summary className="button is-full-width">inventory</summary>
     <div className="card is-full-width">
