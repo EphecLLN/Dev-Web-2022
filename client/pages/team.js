@@ -237,7 +237,9 @@ class Play extends Component {
             <summary className="button is-full-width">inventory</summary>
               <div className="card is-full-width">
                 {this.state.inventory.map(({ id, objet, nom}, i) => (
-                  <p key={i+1}><a id={id} title={objet}>
+                  <p key={i+1}><a id={id} title={objet} onClick={(event) => {
+                    this.setState({ inventory: this.state.inventory.filter(del => del.id != id) })
+                  }}>
                     {nom}</a></p>
                   ))}
               </div>
@@ -294,8 +296,10 @@ class Play extends Component {
           <input className="col-1 button primary" type="submit" value="Send"/>
         </form>
       </div>
+      </div>
+      </div>
       }
-    </div>
+      </div>
   }
 }
 
