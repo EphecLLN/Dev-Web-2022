@@ -19,6 +19,7 @@ router.get("/", (req, res,) => {
 
 /* GET users listing. */
 router.get("/user", (req, res,) => {
+
   db.connection.query("SELECT id, pseudo FROM users;", (err, rows) => {
     if(err) throw err
     res.json(response(true, "list of users", rows))
@@ -60,7 +61,6 @@ router.post("/register", jsonParser, (req, res,) => {
     }
   })
 })
-
 /* PUT user modification. */
 router.put("/user/:id", jsonParser, (req, res,) => {
   res.send("working")

@@ -16,20 +16,13 @@ jobs:
 
     steps:
       - uses: fountainhead/action-wait-for-check@v1.0.0
-        id: wait-for-lint-js
+        id: wait-for-eslint
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: lint-javascript
+          checkName: eslint
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: fountainhead/action-wait-for-check@v1.0.0
-        if: steps.wait-for-lint-js.outputs.conclusion == 'success'
-        id: wait-for-lint-ts
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: lint-typescript
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - uses: fountainhead/action-wait-for-check@v1.0.0
-        if: steps.wait-for-lint-ts.outputs.conclusion == 'success'
+        if: steps.wait-for-eslint.outputs.conclusion == 'success'
         id: wait-for-unit
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
