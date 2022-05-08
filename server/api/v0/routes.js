@@ -4,9 +4,10 @@ const router = express.Router()
 const db = require("../../database")
 const hash = require("../../hash")
 const inventory = require("./inventory")
+const scenario = require("./scenario")
 
+router.use("/scenario", scenario)
 router.use("/inventory", inventory)
-
 
 let jsonParser = bodyParser.json()
 let response = (success, message, data) => { return {"success": success, "message": message, "data": data} }
