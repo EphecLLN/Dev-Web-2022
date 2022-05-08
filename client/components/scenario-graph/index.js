@@ -119,14 +119,20 @@ export const LoadGraph = ({ onNodeSelect }) => {
 }
 
 export const ScenarioGraph = ({ children, onNodeSelect }) => {
-  return <SigmaContainer style={{
-    display: "grid",
-    gridAutoRows: "90vh",
-    gridTemplateColumns: "90vh auto",
-    gap: "3em",
-    width: "90vw",
-    height: "90vh",
-  }}>
+  return <SigmaContainer
+    initialSettings={{
+      renderEdgeLabels: true,
+      labelColor: "#000000",
+    }}
+    style={{
+      display: "grid",
+      gridAutoRows: "90vh",
+      gridTemplateColumns: "90vh auto",
+      gap: "3em",
+      width: "90vw",
+      height: "90vh",
+    }}
+  >
     <LoadGraph onNodeSelect={onNodeSelect}/>
     {children}
   </SigmaContainer>

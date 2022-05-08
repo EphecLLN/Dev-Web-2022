@@ -1,4 +1,4 @@
-import { MultiDirectedGraph } from "graphology"
+import { Graph } from "graphology"
 
 function getSize({ choices }) {
   return 5 + (3 * (choices.length ?? 0))
@@ -9,7 +9,11 @@ export const scenario2graph = ({ steps }) => {
   const BLUE = "#727EE0"
   //const GREEN = "#5DB346"
 
-  const graph = new MultiDirectedGraph()
+  const graph = new Graph({
+    multi: true,
+    type: "directed",
+    allowSelfLoops: true
+  })
 
   if (!steps) return
 
@@ -49,6 +53,7 @@ export const scenario2graph = ({ steps }) => {
         size: 5,
         //color: "#000000",
         label: choice.text,
+        type: "arrow",
       })
     })
     console.log("done")
