@@ -3,9 +3,9 @@
 
 import { EventNames, EventParams } from "@socket.io/component-emitter"
 import {io as IOClient,
-    ManagerOptions,
-    Socket as ClientSocket,
-    SocketOptions} from "socket.io-client"
+  ManagerOptions,
+  Socket as ClientSocket,
+  SocketOptions} from "socket.io-client"
 import { ColorStr } from "./color"
 import { Opaque, WithLength } from "./types"
 
@@ -28,9 +28,9 @@ export type Name = Opaque<string, { Name: true }>
  *  alphanumerical words, `null` otherwise.
  */
 export function nameFrom(s: NonNullable<string>): Name | null {
-    for (const word of s.split("-"))
-        if (!word.match(/^[a-zA-Z0-9]+$/)) return null
-    return s as Name
+  for (const word of s.split("-"))
+    if (!word.match(/^[a-zA-Z0-9]+$/)) return null
+  return s as Name
 }
 
 export type GrantToken = WithLength<string, 16>
@@ -115,47 +115,47 @@ interface S2CEvents {
  * Represents the client end of a bi-directional connection.
  */
 export class Client {
-    private socket: ClientSocket<S2CEvents, C2SEvents>
+  private socket: ClientSocket<S2CEvents, C2SEvents>
 
-    constructor(
-      uri?: string,
-      opts: Partial<ManagerOptions & SocketOptions> = {}
-    ) {
-        // Forces a new connection to be opened rather than re-using a
-        // pre-existing manager
-        opts.forceNew = true
-        this.socket = (uri === null) ? IOClient(opts) : IOClient(uri, opts)
+  constructor(
+    uri?: string,
+    opts: Partial<ManagerOptions & SocketOptions> = {}
+  ) {
+    // Forces a new connection to be opened rather than re-using a
+    // pre-existing manager
+    opts.forceNew = true
+    this.socket = (uri === null) ? IOClient(opts) : IOClient(uri, opts)
+  }
+
+  // FIXME: correct payload type
+  send<E extends EventNames<C2SEvents>, S extends Record<string, unknown>>(
+    event: E,
+    ...payload: EventParams<C2SEvents, E>
+  ): Promise<S> {
+    if (payload.length !== 1) {
+      throw "Need exactly 1 payload"
     }
-
-    // FIXME: correct payload type
-    send<E extends EventNames<C2SEvents>, S extends Record<string, unknown>>(
-      event: E,
-      ...payload: EventParams<C2SEvents, E>
-    ): Promise<S> {
-      if (payload.length !== 1) {
-        throw "Need exactly 1 payload"
-      }
-      return new Promise((resolve, reject) => {
-        // Socket.io's type signature is somewhat incorrect w.r.t ack 
-        // functions, and TS can't allow a single payload argument followed
-        // by the ack.
-        // So we fall back to some unsafe type casting black magic:
-        // Cast payload as the loosest type we can afford
-        const p = payload as { push: (arg: unknown) => number }
-        // Push the ack function to args when TS looks the other way
-        p.push((response: AckResponse<S, unknown>) => {
-          if (response.success) {
-              resolve(response)
-          } else {
-              reject(response)
-          }
-        })
-        this.socket.emit(
-          event,
-          // Swear to TS this payload is 100% legit without any doubt /s
-          ...p as EventParams<C2SEvents, E>,
-        )
+    return new Promise((resolve, reject) => {
+      // Socket.io's type signature is somewhat incorrect w.r.t ack 
+      // functions, and TS can't allow a single payload argument followed
+      // by the ack.
+      // So we fall back to some unsafe type casting black magic:
+      // Cast payload as the loosest type we can afford
+      const p = payload as { push: (arg: unknown) => number }
+      // Push the ack function to args when TS looks the other way
+      p.push((response: AckResponse<S, unknown>) => {
+        if (response.success) {
+          resolve(response)
+        } else {
+          reject(response)
+        }
       })
-    }
+      this.socket.emit(
+        event,
+        // Swear to TS this payload is 100% legit without any doubt /s
+        ...p as EventParams<C2SEvents, E>,
+      )
+    })
+  }
 }
 

@@ -106,7 +106,7 @@ export const LoadGraph = ({ onNodeSelect }) => {
         evt.original.preventDefault()
         evt.original.stopPropagation()
       },
-      mousedown: evt => {
+      mousedown: _evt => {
         if (!sigma.getCustomBBox()) {
           sigma.setCustomBBox(sigma.getBBox())
         }

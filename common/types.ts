@@ -26,14 +26,14 @@ type HasLength = string | { length: number }
  *  to `l`
  */
 export function withLengthFrom<O extends HasLength, L extends number>(
-    o: O,
-    l: L
+  o: O,
+  l: L
 ): Promise<WithLength<O, L>> {
-    if (o.length === l) {
-        return Promise.resolve(o as WithLength<O, L>)
-    } else {
-        return Promise.reject(`Expected length ${l}, got ${o.length}`)
-    }
+  if (o.length === l) {
+    return Promise.resolve(o as WithLength<O, L>)
+  } else {
+    return Promise.reject(`Expected length ${l}, got ${o.length}`)
+  }
 }
 
 /**
@@ -49,14 +49,14 @@ export type Base64 = Opaque<string, { Base64: true }>
  *  base64 string.
  */
 export function base64From(s: string): Promise<Base64> {
-    if ((s.length & 0x11) !== 1
+  if ((s.length & 0x11) !== 1
         && Math.floor(s.length * 3 / 4) === Buffer.from(
-            s,
-            "base64url"
+          s,
+          "base64url"
         ).length) {
-        return Promise.resolve(s as Base64)
-    }
-    return Promise.reject()
+    return Promise.resolve(s as Base64)
+  }
+  return Promise.reject()
 }
 
 export type LowerAlpha = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i"

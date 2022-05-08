@@ -7,9 +7,9 @@ let crypto = require("crypto")
  * @param {number} length - Length of the random string.
  */
 let genRandomString = (length) => {
-    return crypto.randomBytes(Math.ceil(length/2))
-            .toString("hex") /** convert to hexadecimal format */
-            .slice(0,length)   /** return required number of characters */
+  return crypto.randomBytes(Math.ceil(length/2))
+    .toString("hex") /** convert to hexadecimal format */
+    .slice(0,length)   /** return required number of characters */
 }
 
 /**
@@ -19,24 +19,24 @@ let genRandomString = (length) => {
  * @param {string} salt
  */
 let sha512 = (password, salt) => {
-    let hash = crypto.createHmac("sha512", salt)
-    hash.update(password)
-    let value = Buffer.from(hash.digest("binary"),"binary")
-    return {
-        salt:salt,
-        passwordHash:value
-    }
+  let hash = crypto.createHmac("sha512", salt)
+  hash.update(password)
+  let value = Buffer.from(hash.digest("binary"),"binary")
+  return {
+    salt:salt,
+    passwordHash:value
+  }
 }
 
 let saltHashPassword = (userpassword) => {
-    let salt = genRandomString(16)
-    let passwordData = sha512(userpassword, salt)
-    return passwordData
+  let salt = genRandomString(16)
+  let passwordData = sha512(userpassword, salt)
+  return passwordData
 }
 
 let login = (userpassword, salt, passwordHash) => {
-    let passwordData = sha512(userpassword, salt)
-    return Buffer.compare(passwordData.passwordHash, passwordHash) == 0
+  let passwordData = sha512(userpassword, salt)
+  return Buffer.compare(passwordData.passwordHash, passwordHash) == 0
 }
 
 
