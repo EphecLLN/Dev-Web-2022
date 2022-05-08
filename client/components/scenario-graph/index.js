@@ -1,112 +1,12 @@
 import React, {useState} from "react"
 import {useEffect} from "react"
-import {Graph} from "graphology"
 import {SigmaContainer,
   useLoadGraph,
   useRegisterEvents,
   useSigma,} from "@react-sigma/core"
 import {useWorkerLayoutForce} from "@react-sigma/layout-force"
 import "@react-sigma/core/lib/react-sigma.min.css"
-
-function initGraph(scenario) {
-  const RED = "#FA4F40"
-  const BLUE = "#727EE0"
-  const GREEN = "#5DB346"
-
-  // Create a sample graph
-  const graph = new Graph()
-  graph.addNode(
-    "John",
-    {
-      size: 15,
-      label: "John",
-      color: RED,
-      x: 1,
-      y: 1
-    }
-  )
-  graph.addNode(
-    "Mary",
-    {
-      size: 15,
-      label: "Mary",
-      color: RED,
-      x: 1,
-      y: 1
-    }
-  )
-  graph.addNode(
-    "Suzan",
-    {
-      size: 15,
-      label: "Suzan",
-      color: RED,
-      x: 1,
-      y: 1
-    }
-  )
-  graph.addNode(
-    "Nantes",
-    {
-      size: 15,
-      label: "Nantes",
-      color: BLUE,
-      x: 1,
-      y: 1
-    }
-  )
-  graph.addNode(
-    "New-York",
-    {
-      size: 15,
-      label: "New-York",
-      color: BLUE,
-      x: 1,
-      y: 1
-    }
-  )
-  graph.addNode(
-    "Sushis",
-    {
-      size: 7,
-      label: "Sushis",
-      color: GREEN,
-      x: 1.7,
-      y: 0.5
-    }
-  )
-  graph.addNode(
-    "Falafels",
-    {
-      size: 7,
-      label: "Falafels",
-      color: GREEN,
-      x: -0.1,
-      y: 3.2
-    }
-  )
-  graph.addNode(
-    "Kouign Amann",
-    {
-      size: 7,
-      label: "Kouign Amann",
-      color: GREEN,
-      x: 1,
-      y: 1.5
-    }
-  )
-
-  graph.addEdge("John", "Mary", {label: "works with", size: 5})
-  graph.addEdge("Mary", "Suzan", {label: "works with", size: 5})
-  graph.addEdge("Mary", "Nantes", {label: "lives in", size: 5})
-  graph.addEdge("John", "New-York", {label: "lives in", size: 5})
-  graph.addEdge("Suzan", "New-York", {label: "lives in", size: 5})
-  graph.addEdge("John", "Falafels", {label: "eats", size: 5})
-  graph.addEdge("Mary", "Sushis", {label: "eats", size: 5})
-  graph.addEdge("Suzan", "Kouign Amann", {label: "eats", size: 5})
-
-  return graph
-}
+import { scenario2graph } from "./convert"
 
 export const LoadGraph = ({ onNodeSelect }) => {
 
@@ -126,8 +26,21 @@ export const LoadGraph = ({ onNodeSelect }) => {
   })
 
   // Register our states
-  const [_scenarioId, _setScenarioId] = useState(1)
-  const [graph, _setGraph] = useState(initGraph(null))
+  const [scenarioId, _setScenarioId] = useState(1)
+  const [graph, setGraph] = useState(null)
+
+  // Fetch scenario from the API and (re)build the graph
+  useEffect(() => {
+    fetch(`/api_v0/scenario/${scenarioId}`)
+      .catch(console.log)
+      .then((response) => response.json())
+      .then(({ scenario }) => {
+        setGraph(scenario2graph(JSON.parse(scenario)))
+        console.log(`initializing graph from scenario ${scenarioId} with:`)
+        console.log(scenario)
+        console.log(typeof scenario)
+      })
+  }, [ scenarioId ])
 
   // Load and animate the graph on creation, and register events
   useEffect(() => {
