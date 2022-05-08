@@ -65,13 +65,15 @@ export type AckResponse<Success, Fail> =
 /**
  * TODO
  */
-export type TokenAck =
-    Ack<{ access: AccessToken, refresh?: RefreshToken }, Record<string, never>>
+export type TokenAckFn = AckFn<
+  { access: AccessToken, refresh?: RefreshToken },
+  Record<string, never>
+>
 
 /**
  * TODO
  */
-export type Ack<Success, Fail> =
+export type AckFn<Success, Fail> =
     (response: AckResponse<Success, Fail>) => void
 
 /**
@@ -84,12 +86,12 @@ interface C2SEvents {
 
     register(
         payload: { name: Name, color: ColorStr },
-        ack: Ack<{ grant: GrantToken }, { reason: RegistrationFailReason }>
+        ack: AckFn<{ grant: GrantToken }, { reason: RegistrationFailReason }>
     ): void
 
-    authenticate(grant: GrantToken, ack: TokenAck): void
+    authenticate(grant: GrantToken, ack: TokenAckFn): void
 
-    refresh(token: RefreshToken, ack: TokenAck): void
+    refresh(token: RefreshToken, ack: TokenAckFn): void
 
     chatMessage(payload: { token: AccessToken, msg: string }): void
 
@@ -126,27 +128,34 @@ export class Client {
     }
 
     // FIXME: correct payload type
-    send<E extends EventNames<C2SEvents>>(
+    send<E extends EventNames<C2SEvents>, S extends Record<string, unknown>>(
       event: E,
-      payload: Parameters<C2SEvents[E]>,
-    ): Promise<Parameters<EventParams<C2SEvents, E>[1]>> {
-
-        return new Promise((resolve, reject) => {
-          this.socket.emit(
-            event,
-            payload,
-            (response: AckResponse<
-              Record<string, unknown>,
-              Record<string, unknown>
-            >) => {
-              if (response.success) {
-                  resolve(response)
-              } else {
-                  reject(response)
-              }
-            }
-          )
+      ...payload: EventParams<C2SEvents, E>
+    ): Promise<S> {
+      if (payload.length !== 1) {
+        throw "Need exactly 1 payload"
+      }
+      return new Promise((resolve, reject) => {
+        // Socket.io's type signature is somewhat incorrect w.r.t ack 
+        // functions, and TS can't allow a single payload argument followed
+        // by the ack.
+        // So we fall back to some unsafe type casting black magic:
+        // Cast payload as the loosest type we can afford
+        const p = payload as { push: (arg: unknown) => number }
+        // Push the ack function to args when TS looks the other way
+        p.push((response: AckResponse<S, unknown>) => {
+          if (response.success) {
+              resolve(response)
+          } else {
+              reject(response)
+          }
         })
+        this.socket.emit(
+          event,
+          // Swear to TS this payload is 100% legit without any doubt /s
+          ...p as EventParams<C2SEvents, E>,
+        )
+      })
     }
 }
 
