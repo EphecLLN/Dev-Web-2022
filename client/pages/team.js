@@ -21,6 +21,8 @@ class Play extends Component {
     },
     poll: null,
     inventory: [],
+    votes: [],
+    vote:null,
   }
 
   constructor (props) {
@@ -36,6 +38,14 @@ class Play extends Component {
       messages.push(message)
       this.setState({ messages: messages })
       window.scrollTo(0, document.body.scrollHeight)
+    })
+    this.client.socket.on("broadcastLaunch", (launch) => {
+      const {
+        vote
+      } = launch
+      console.log(`received from launch: ${vote}`)
+      newStateVote = vote ? this.state.votes+1 : this.state.votes-1
+      this.setState({votes: newStateVote})
     })
     this.client.socket.on("broadcastPoll", (poll) => {
       const {
@@ -97,7 +107,10 @@ class Play extends Component {
         name: document.getElementById("input-name").value,
       })
       this.authContext().then(
-        () => console.log("successfully logged in"),
+        (token) => {
+          console.log("successfully logged in")
+          this.setState({poll: { text: "Est-ce que tous les joueurs sont prêt ?", choices: ["Oui","Non"], name: "", color: "#9632fa" }})
+        },
       )
     })
   }
@@ -141,6 +154,17 @@ class Play extends Component {
         }
       })
     }
+  }
+
+  handleVote(e) {
+    this.setState({vote: e.target.id})
+    this.authContext().then((token) => {
+      this.client.send("sendVote", {
+        token,
+        vote: this.state.vote
+      })
+      console.log(`Sent event "sendVote": ${this.state.vote}  ${this.state.poll.choices[this.state.vote]}`)
+    })
   }
 
   render () {
@@ -264,19 +288,20 @@ class Play extends Component {
             <li key={0} className="row is-center">
               {this.state.poll.text}
             </li>
-            {this.state.poll.choices.map((text, i) => { 
-              return(
-                <li key={i+1} className="row is-center">
-                  <input
-                    className="col-4 is-left button primary"
-                    type="submit"
-                    value={text}
-                    id={`poll-choce-${i}`}
-                  />
-                </li>
-              )
-            })
-            }
+              {this.state.poll.choices.map((text, i) => { 
+                return(
+                  <li key={i+1} className="row is-center">
+                    <input
+                      className="col-4 is-left button primary"
+                      type="submit"
+                      value={`${text} ${this.state.votes==null ? 0 : this.state.votes[i]}`}
+                      id={i}
+                      onClick={this.handleVote.bind(this)}
+                    />
+                  </li>
+                )
+                })
+              }
           </ul>
             } 
             <form className="row is-full-width" id="form-msg">
