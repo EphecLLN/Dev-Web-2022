@@ -53,8 +53,11 @@ choice    = {
               "text": "<text>",
               "next": "<id>"
             }
-id = 1*DIGIT
+id        = text
+text      = 1*OCTET
 ```
+
+Implementations MAY restrict \<text> to valid UTF-8.
 
 > Example:
 > ```json
