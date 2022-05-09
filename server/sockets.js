@@ -6,7 +6,10 @@ let story = {
   currentStep: "1",
   steps: {
     0: {
-      text:"Merci d'avoir Joué !"
+      text:"Merci d'avoir Joué !",
+      choices: [
+        { text: "Rejouer", next: "1" }
+      ]
     },
     1: {
       text: "La partie est lancée !",
@@ -18,8 +21,22 @@ let story = {
     2 : {
       text: "L'aventure continue",
       choices: [
-        { text: "Revenir en arrière", next: "1" },
+        { text: "Tourner à droite", next: "3" },
+        { text: "Tourner à gauche", next: "4" },
         { text: "Terminer", next: "0" }
+      ]
+    },
+    3 : {
+      text: "Le chemin s'arrête net",
+      choices: [
+        { text: "Revenir en arrière", next: "2" },
+        { text: "Terminer", next: "0" }
+      ]
+    },
+    4 : {
+      text: "Vous avez trouver un trésor",
+      choices: [
+        { text: "Terminer l'aventure", next: "0" }
       ]
     }
   }
@@ -90,26 +107,28 @@ class SocketIOServer {
 
   onSendVote (socket, {token, vote}) {
     if (this.#auth.validateAccess(socket.id, token)) {
-      console.log(
-        `User ${this.#clients[socket.id].name} voted: `
-        + `${vote}`
-      )
-      story.votes[vote] += 1
+      if(typeof vote == "string") {
+        console.log(`User ${this.#clients[socket.id].name} voted: ${vote}`)
+        story.votes[vote] += 1
+      }
       this.#server.emit(
         "broadcastVote",
         Object.assign({votes: story.votes} , this.#clients[socket.id]),
       )
       if(story.votes.reduce((a, b) => a + b) >= Object.keys(this.#clients).length) {
         console.log("all users have voted")
+        // update currentStep of story to next step
         story.currentStep = story.steps[story.currentStep].choices[story.votes.indexOf(Math.max(...story.votes))].next
-        console.log(Object.keys(this.#clients)[0])
+        // reset the votes
+        story.votes = new Array(Object.keys(story.steps[story.currentStep].choices).length).fill(0)
+
         this.onSendPoll(socket, {token: token})
+        this.onSendVote(socket, {token: token})
       }
     }
   }
 
   onSendPoll (socket, {token, text, choices}) {
-    console.log(token)
     if (this.#auth.validateAccess(socket.id, token)) {
       console.log(`User ${this.#clients[socket.id].name} ask for poll`)
       let text = story.steps[story.currentStep].text

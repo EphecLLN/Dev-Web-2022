@@ -278,45 +278,47 @@ class Play extends Component {
                 </ul>
               </div>
             </div>
-            {this.state.poll && 
-          <ul className="container">
-            <li key={0} className="row is-center">
-              {this.state.poll.text}
-            </li>
-              {this.state.poll.choices.map((text, i) => { 
-                return(
-                  <li key={i+1} className="row is-center">
-                    <input
-                      className="col-4 is-left button primary"
-                      type="submit"
-                      value={`${text} ${this.state.votes==null ? 0 : this.state.votes[i]}`}
-                      id={i}
-                      onClick={this.handleVote.bind(this)}
-                    />
-                  </li>
-                )
-                })
-              }
-          </ul>
-        }
-        <form className="row is-full-width" id="form-msg">
-          <input
-            className="col is-rounded"
-            id="input-msg"
-            autoComplete="off"
-            type="text"
-          />
-          <input className="col-1 button primary" type="submit" value="Send"/>
-        </form>
-        <input className="col-1 button primary" type="submit" onClick={
-          () => {this.authContext().then((token) => {
-            this.client.send("sendPoll", {
-                token,
-                text: "text",
-                choices: ["choices"]
-              })
-          })}
-            } value="GetPoll"/>
+            {this.state.poll &&
+              <ul className="container">
+                <li key={0} className="row is-center">
+                  {this.state.poll.text}
+                </li>
+                  {this.state.poll.choices.map((text, i) => { 
+                    return(
+                      <li key={i+1} className="row is-center">
+                        <input
+                          className="col-4 is-left button primary"
+                          type="submit"
+                          value={`${text} ${this.state.votes==null ? 0 : this.state.votes[i]}`}
+                          id={i}
+                          onClick={this.handleVote.bind(this)}
+                        />
+                      </li>
+                    )
+                    })
+                  }
+              </ul>
+            } 
+            <form className="row is-full-width" id="form-msg">
+              <input
+                className="col is-rounded"
+                id="input-msg"
+                autoComplete="off"
+                type="text"
+              />
+              <input className="col-1 button primary" type="submit" value="Send"/>
+            </form>
+            <input className="col-1 button primary" type="submit" onClick={
+              () => {this.authContext().then((token) => {
+                this.client.send("sendPoll", {
+                    token,
+                    text: "text",
+                    choices: ["choices"]
+                  })
+              })}
+                } value="GetPoll"/>
+          </div>
+        </div>
       </div>
       }
     </div>
