@@ -88,7 +88,7 @@ function NodeEditor({ node }) {
   const step = graph.getNodeAttribute(node, "step")
 
   const textInput = useRef(null)
-  const [text, setText] = useState(step.text)
+  const [text, setText] = useState(step?.text)
 
   if (step === undefined) {
     if (graph.getNodeAttribute(node, "end")) {
