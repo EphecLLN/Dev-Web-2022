@@ -128,8 +128,7 @@ export const ScenarioGraph = ({ children, onNodeSelect }) => {
       display: "grid",
       gridAutoRows: "90vh",
       gridTemplateColumns: "90vh auto",
-      gap: "3em",
-      width: "90vw",
+      width: "100vw",
       height: "90vh",
     }}
   >

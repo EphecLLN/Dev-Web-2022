@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { useSigma } from "@react-sigma/core"
 
 function GenericEditor() {
@@ -84,7 +84,11 @@ function ChoiceCreator({ className, source }) {
 function NodeEditor({ node }) {
   const sigma = useSigma()
   const graph = sigma.getGraph()
+
   const step = graph.getNodeAttribute(node, "step")
+
+  const textInput = useRef(null)
+  const [text, setText] = useState(step.text)
 
   if (step === undefined) {
     if (graph.getNodeAttribute(node, "end")) {
@@ -95,9 +99,41 @@ function NodeEditor({ node }) {
     return null
   }
 
+  // TODO: Replace all the "marginLeft"s with some padding on the container
   return <>
     <h1 className="row" style={{marginLeft: "2em"}}>{node}</h1>
-    <p className="row" style={{marginLeft: "2em"}}>{step.text}</p>
+    <div className="row is-full-width">
+      <textarea
+        ref={textInput}
+        className="col-10"
+        defaultValue={text}
+        onInput={(evt) => setText(evt.target.value)}
+      />
+      <div className="container col-2">
+        <input
+          className="row button primary"
+          style={{margin: "Auto"}}
+          type="button"
+          value="Save"
+          onClick={(evt) => {
+            graph.updateNodeAttribute(node, "step", (step) => {
+              step.text = text
+              return step
+            })
+          }}
+        />
+        <input
+          className="row button clear"
+          style={{margin: "Auto"}}
+          type="button"
+          value="Reset"
+          onClick={() => {
+            setText(step.text)
+            textInput.current.value = step.text
+          }}
+        />
+      </div>
+    </div>
     <h3 className="row" style={{marginLeft: "2em"}}>Choices:</h3>
     <div className="row is-center">
       <ChoiceCreator className="col" source={node}/>
@@ -122,6 +158,7 @@ function NodeEditor({ node }) {
 export const ScenarioEditor = ({ node }) => {
   return <div className="container is-center" style={{
     display: "block",
+    minWidth: "40vw",
     border: "2px solid red",
     borderRadius: "5px",
     overflow: "auto",
