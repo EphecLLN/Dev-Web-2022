@@ -1,7 +1,7 @@
 import { Graph } from "graphology"
 
 function getSize({ choices }) {
-  return 5 + (3 * (choices.length ?? 0))
+  return 10 + (3 * (choices.length ?? 0))
 }
 
 export const scenario2graph = ({ steps }) => {
@@ -35,7 +35,7 @@ export const scenario2graph = ({ steps }) => {
   // Adding the "end" node
   graph.addNode("0", {
     // Graphology attributes
-    size: 5,
+    size: 10,
     color: RED,
     x: Math.random() - 0.5,
     y: Math.random() - 0.5,
