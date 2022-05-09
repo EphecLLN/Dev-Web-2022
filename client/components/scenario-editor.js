@@ -25,16 +25,26 @@ function ChoiceCreator({ className, source }) {
 
   const [text, setText] = useState("")
   const [next, setNext] = useState(null)
-  const [status, setStatus] = useState(null)
 
   function submit(evt) {
+    if (!next) return
     evt.preventDefault()
 
     if (!graph.hasNode(next)) {
-      setStatus({ error: `There is no step "${next}"`})
-      return
+      graph.addNode(next, {
+        // Graphology attributes
+        size: 5,
+        color: "#727EE0",
+        x: Math.random() - 0.5,
+        y: Math.random() - 0.5,
+        // Custom attributes
+        step: {
+          text: "",
+          choices: [],
+        },
+      })
     }
-    setStatus(null)
+    graph.updateNodeAttribute(source, "size", (size) => size + 3)
     graph.updateNodeAttribute(source, "step", (step) => {
       step.choices.push({ next, text })
       return step
@@ -44,14 +54,12 @@ function ChoiceCreator({ className, source }) {
       label: text,
       type: "arrow",
     })
-    // TODO
-    console.log(`TODO: Add choice '${text}' to node ${next}`)
   }
 
   return <form className={`container ${className}`} onSubmit={submit}>
     <input className="row button primary"
       type="button"
-      value="Add choice"
+      value={graph.hasNode(next) ? "Add choice" : "Create next step"}
       onClick={submit}
     />
     <textarea className="row"
@@ -70,17 +78,6 @@ function ChoiceCreator({ className, source }) {
         maxWidth: "100%"
       }}
     />
-    {status?.error &&
-      <div
-        className="row card"
-        style={{
-          background: "var(--color-error)",
-          maxWidth: "100%",
-        }}
-      >
-        {status.error}
-      </div>
-    }
   </form>
 }
 
