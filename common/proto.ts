@@ -95,6 +95,8 @@ interface C2SEvents {
 
     chatMessage(payload: { token: AccessToken, msg: string }): void
 
+    sendVote(payload: {token: AccessToken, vote: number}): void
+
     sendPoll(
       payload: {token: AccessToken, text: string, choices: string[]}
     ): void
@@ -107,6 +109,8 @@ interface S2CEvents {
     broadcastMessage(
         payload: { name: Name, color: ColorStr, msg: string }
     ): void
+
+    broadcastVote(payload: {vote: number[]}): void
 
     broadcastPoll(payload: {text: string, choices: string[]}): void
 }

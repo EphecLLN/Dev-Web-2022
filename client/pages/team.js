@@ -39,13 +39,8 @@ class Play extends Component {
       this.setState({ messages: messages })
       window.scrollTo(0, document.body.scrollHeight)
     })
-    this.client.socket.on("broadcastLaunch", (launch) => {
-      const {
-        vote
-      } = launch
-      console.log(`received from launch: ${vote}`)
-      newStateVote = vote ? this.state.votes+1 : this.state.votes-1
-      this.setState({votes: newStateVote})
+    this.client.socket.on("broadcastVote", (vote) => {
+      this.setState({ votes: vote.votes })
     })
     this.client.socket.on("broadcastPoll", (poll) => {
       const {
@@ -109,7 +104,7 @@ class Play extends Component {
       this.authContext().then(
         (token) => {
           console.log("successfully logged in")
-          this.setState({poll: { text: "Est-ce que tous les joueurs sont prêt ?", choices: ["Oui","Non"], name: "", color: "#9632fa" }})
+          //this.setState({poll: { text: "Est-ce que tous les joueurs sont prêt ?", choices: ["Oui","Non"], name: "", color: "#9632fa" }})
         },
       )
     })
@@ -303,20 +298,25 @@ class Play extends Component {
                 })
               }
           </ul>
-            } 
-            <form className="row is-full-width" id="form-msg">
-              <input
-                className="col is-rounded"
-                id="input-msg"
-                autoComplete="off"
-                type="text"
-              />
-              <input 
-                className="col-1 button primary" 
-                type="submit" value="Send"/>
-            </form>
-          </div>
-        </div>
+        }
+        <form className="row is-full-width" id="form-msg">
+          <input
+            className="col is-rounded"
+            id="input-msg"
+            autoComplete="off"
+            type="text"
+          />
+          <input className="col-1 button primary" type="submit" value="Send"/>
+        </form>
+        <input className="col-1 button primary" type="submit" onClick={
+          () => {this.authContext().then((token) => {
+            this.client.send("sendPoll", {
+                token,
+                text: "text",
+                choices: ["choices"]
+              })
+          })}
+            } value="GetPoll"/>
       </div>
       }
     </div>
