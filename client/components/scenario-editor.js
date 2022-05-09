@@ -115,7 +115,7 @@ function NodeEditor({ node }) {
           style={{margin: "Auto"}}
           type="button"
           value="Save"
-          onClick={(evt) => {
+          onClick={() => {
             graph.updateNodeAttribute(node, "step", (step) => {
               step.text = text
               return step
