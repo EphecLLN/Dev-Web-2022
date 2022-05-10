@@ -2,7 +2,11 @@ const { Server } = require("socket.io")
 const { AuthManager } = require("./auth")
 
 let story = {
+  // Each index of the array represent the sum of vote for choices
+  // So votes.length() == Object.keys(steps[currentStep].choices).length()
   votes:[0,0],
+  // contains votes of each player 
+  hasVoted: {},
   currentStep: "1",
   steps: {
     0: {
@@ -109,19 +113,28 @@ class SocketIOServer {
     if (this.#auth.validateAccess(socket.id, token)) {
       if(typeof vote == "string") {
         console.log(`User ${this.#clients[socket.id].name} voted: ${vote}`)
+        // if player has already voted then change the vote
+        if(token in story.hasVoted) {
+          story.votes[story.hasVoted[token]] -= 1
+        }
+        story.hasVoted[token] = vote
         story.votes[vote] += 1
+        
       }
       this.#server.emit(
         "broadcastVote",
         Object.assign({votes: story.votes} , this.#clients[socket.id]),
       )
+      // if every player has voted
       if(story.votes.reduce((a, b) => a + b) >= Object.keys(this.#clients).length) {
         console.log("all users have voted")
         // update currentStep of story to next step
         story.currentStep = story.steps[story.currentStep].choices[story.votes.indexOf(Math.max(...story.votes))].next
         // reset the votes
         story.votes = new Array(Object.keys(story.steps[story.currentStep].choices).length).fill(0)
-
+        story.hasVoted = {}
+        
+        // update the poll and the votes
         this.onSendPoll(socket, {token: token})
         this.onSendVote(socket, {token: token})
       }
