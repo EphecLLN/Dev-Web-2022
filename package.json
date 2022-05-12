@@ -77,7 +77,7 @@
     "lodash": "^4.17.21",
     "pactum": "^3.1.7",
     "sigma": "^2.3.0",
-    "sort-package-json": "^1.54.0",
+    "sort-package-json": "^1.57.0",
     "style-loader": "^3.3.1",
     "styled-components": "^5.3.3",
     "ts-loader": "^9.3.0",
