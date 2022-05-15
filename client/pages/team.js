@@ -102,9 +102,8 @@ class Play extends Component {
         name: document.getElementById("input-name").value,
       })
       this.authContext().then(
-        (token) => {
+        (_token) => {
           console.log("successfully logged in")
-          //this.setState({poll: { text: "Est-ce que tous les joueurs sont prêt ?", choices: ["Oui","Non"], name: "", color: "#9632fa" }})
         },
       )
     })
@@ -158,7 +157,7 @@ class Play extends Component {
         token,
         vote: this.state.vote
       })
-      console.log(`Sent event "sendVote": ${this.state.vote}  ${this.state.poll.choices[this.state.vote]}`)
+      console.log(`Sent event "sendVote": ${this.state.vote}`)
     })
   }
 
@@ -283,20 +282,20 @@ class Play extends Component {
                 <li key={0} className="row is-center">
                   {this.state.poll.text}
                 </li>
-                  {this.state.poll.choices.map((text, i) => { 
-                    return(
-                      <li key={i+1} className="row is-center">
-                        <input
-                          className="col-4 is-left button primary"
-                          type="submit"
-                          value={`${text} ${this.state.votes==null ? 0 : this.state.votes[i]}`}
-                          id={i}
-                          onClick={this.handleVote.bind(this)}
-                        />
-                      </li>
-                    )
-                    })
-                  }
+                {this.state.poll.choices.map((text, i) => { 
+                  return(
+                    <li key={i+1} className="row is-center">
+                      <input
+                        className="col-4 is-left button primary"
+                        type="submit"
+                        value={`${text} ${this.state.votes[i]}`}
+                        id={i}
+                        onClick={this.handleVote.bind(this)}
+                      />
+                    </li>
+                  )
+                })
+                }
               </ul>
             } 
             <form className="row is-full-width" id="form-msg">
@@ -306,17 +305,21 @@ class Play extends Component {
                 autoComplete="off"
                 type="text"
               />
-              <input className="col-1 button primary" type="submit" value="Send"/>
+              <input 
+                className="col-1 button primary" 
+                type="submit" 
+                value="Send"
+              />
             </form>
             <input className="col-1 button primary" type="submit" onClick={
               () => {this.authContext().then((token) => {
                 this.client.send("sendPoll", {
-                    token,
-                    text: "text",
-                    choices: ["choices"]
-                  })
+                  token,
+                  text: "text",
+                  choices: ["choices"]
+                })
               })}
-                } value="GetPoll"/>
+            } value="GetPoll"/>
           </div>
         </div>
       </div>

@@ -11,9 +11,7 @@ let story = {
   steps: {
     0: {
       text:"Merci d'avoir Joué !",
-      choices: [
-        { text: "Rejouer", next: "1" }
-      ]
+      choices: [{ text: "Rejouer", next: "1" }]
     },
     1: {
       text: "La partie est lancée !",
@@ -39,9 +37,7 @@ let story = {
     },
     4 : {
       text: "Vous avez trouver un trésor",
-      choices: [
-        { text: "Terminer l'aventure", next: "0" }
-      ]
+      choices: [{ text: "Terminer l'aventure", next: "0" }]
     }
   }
 }
@@ -126,12 +122,14 @@ class SocketIOServer {
         Object.assign({votes: story.votes} , this.#clients[socket.id]),
       )
       // if every player has voted
-      if(story.votes.reduce((a, b) => a + b) >= Object.keys(this.#clients).length) {
+      if(story.votes.reduce((a,b)=>a+b) >= Object.keys(this.#clients).length) {
         console.log("all users have voted")
+        let choices = story.steps[story.currentStep].choices
         // update currentStep of story to next step
-        story.currentStep = story.steps[story.currentStep].choices[story.votes.indexOf(Math.max(...story.votes))].next
+        let choiceVoted = story.votes.indexOf(Math.max(...story.votes))
+        story.currentStep = choices[choiceVoted].next
         // reset the votes
-        story.votes = new Array(Object.keys(story.steps[story.currentStep].choices).length).fill(0)
+        story.votes = new Array(Object.keys(choices).length).fill(0)
         story.hasVoted = {}
         
         // update the poll and the votes
@@ -141,11 +139,12 @@ class SocketIOServer {
     }
   }
 
-  onSendPoll (socket, {token, text, choices}) {
+  onSendPoll (socket, {token}) {
     if (this.#auth.validateAccess(socket.id, token)) {
       console.log(`User ${this.#clients[socket.id].name} ask for poll`)
-      let text = story.steps[story.currentStep].text
-      let choices = story.steps[story.currentStep].choices.map((choice) => {return choice.text})
+      let currentStep = story.steps[story.currentStep]
+      let text = currentStep.text
+      let choices = currentStep.choices.map((choice) => {return choice.text})
       this.#server.emit(
         "broadcastPoll",
         Object.assign({ text,choices }, this.#clients[socket.id]),

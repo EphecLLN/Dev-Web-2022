@@ -34,8 +34,8 @@ router.get("/user/:id", (req, res,) => {
       if(err) throw err
       if(rows.length == 1) {
         res.status(200).json(rows)
-    } else {
-      res.status(404).send("user not found")
+      } else {
+        res.status(404).send("user not found")
       }
     }
   )
