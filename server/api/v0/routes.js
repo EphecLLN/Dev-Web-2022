@@ -98,10 +98,10 @@ router.post("/login", jsonParser, (req, res,) => {
     + `${db.connection.escape(req.body.pseudo)};`,
     (err, rows) => {
       if(err) throw err
-      if(rows.length == 0) {
+      if(rows.length > 0) {
         db.connection.query(
           "SELECT SALT, PASSWORD FROM users WHERE pseudo="
-          + `${req.body.pseudo}';`,
+          + `'${req.body.pseudo}';`,
           (err, rows) => {
             if(err) throw err
             if(hash.login(req.body.password,rows[0].SALT,rows[0].PASSWORD)) {
