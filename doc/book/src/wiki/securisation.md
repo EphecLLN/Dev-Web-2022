@@ -111,6 +111,7 @@
 | Réquisition d'une clée SSH pour accéder à la machine               | Accès à la machine                                                  |
 | Isolation du serveur derrière un NAT et un reverse-proxy           | Accès à la machine                                                  |
 | Assainissement des paramètres aux requêtes SQL                     | Injections SQL par l'API                                            |
+| mettre a jour les différentes dépendances du projet                | dépend de la faille                                                 |
 
 ## Suivi de la sécurisation
 
