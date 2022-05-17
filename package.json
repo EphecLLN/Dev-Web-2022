@@ -75,7 +75,7 @@
     "html-webpack-plugin": "^5.5.0",
     "jest": "^28.1.0",
     "lodash": "^4.17.21",
-    "pactum": "^3.1.7",
+    "pactum": "^3.1.8",
     "sigma": "^2.3.0",
     "sort-package-json": "^1.57.0",
     "style-loader": "^3.3.1",
