@@ -6,6 +6,7 @@
 
 - [Accueil](wiki/accueil.md)
 - [Analyse des besoins](wiki/analyse-besoins.md)
+  - [backlog](wiki/backlog.md)
 - [Analyse technique](wiki/analyse-technique.md)
 - [Implémentation](wiki/implementation.md)
 - [Test de l'application](wiki/testing.md)
