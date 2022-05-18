@@ -66,14 +66,14 @@ Nous utilisons webpack pour générer notre arborescence de fichiers statics à 
 **Express**
 base path : `/api/v0`
 
-méthode | routes | paramètres | argument body | exemple | retour 
-------- | ------ | -----------| ------------- | ------- | ------
-GET | /user  | | || 200
-GET | /inventory | id : id du scenario | | | 200
-POST | /register | pseudo : pseudo de l'utilisateur <br> password : mot de passe de l'utilisateur  |{user, psw} | |200 <br> 404( pseudo already used)
-PUT |/user/:id| id : identifiant de l'utilisateur |{user, psw} ||200  
-DELETE |/user/:id| id : identifiant de l'utilisateur||| 200 <br> 404(user not found)
-POST |login |pseudo:pseudo de l'utilisateur <br> password : mot de passe de l'utilisateur |{user, psw}||200 <br> 401(authentification failed) <br> 404 (user not found) <br> 400(wrong body request)
+méthode | routes     | paramètres                                                                      | argument body | type renvoyé     | retour | revoie de l'élément
+------- | ---------- | -----------------------------------------------------------------------------   | ------------- | ---------------- | ------ | -------------------
+GET     | /user      |                                                                                 |               |   JSON           | 200    | [{id, pseudo}]
+GET     | /inventory | id : id du scenario                                                             |               | JSON             | 200    | [{id, type, nom}, {id, type, nom},...]
+POST    | /register  | pseudo : pseudo de l'utilisateur <br> password : mot de passe de l'utilisateur  |{user, psw}    | text             | 200 <br> 404( pseudo already used)| you are logged in
+PUT     |/user/:id   | id : identifiant de l'utilisateur                                               |{user, psw}    |text              | 200  | user modified
+DELETE  |/user/:id   | id : identifiant de l'utilisateur                                               |               |       text       | 200 <br> 404(user not found) | user delete
+POST    |login       |pseudo:pseudo de l'utilisateur <br> password : mot de passe de l'utilisateur     | {user, psw}   | text             | 200 <br> 401(authentification failed) <br> 404 (user not found) <br> 400(wrong body request) | user add
 
 Swagger nous générera la documentation de notre API.
 
