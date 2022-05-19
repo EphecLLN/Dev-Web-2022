@@ -55,7 +55,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-env": "^7.18.0",
     "@babel/preset-react": "^7.17.12",
-    "@cucumber/cucumber": "^8.2.0",
+    "@cucumber/cucumber": "^8.2.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.6",
     "@react-sigma/core": "^2.0.2",
     "@react-sigma/layout-force": "^2.0.2",
