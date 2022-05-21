@@ -16,6 +16,5 @@ module.exports = {
   notify: true,
   notifyMode: "failure-change",
   slowTestThreshold: 10,
-  testEnvironment: "jsdom",
   verbose: true,
 }
