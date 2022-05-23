@@ -20,11 +20,26 @@ comme linter, nous allons utiliser ESLint parce que c'est le linter le plus util
 
 ## Bilan Morganne
 
-https://github.com/Austreelis/WebsiteWhereYouAreTheHero/issues/12
+<https://github.com/Austreelis/WebsiteWhereYouAreTheHero/issues/12>
 
 toute la US perso de Morganne a été réalisée
 
-## Bilan [nom étud. 2]
+## Bilan Simon
+
+(<https://github.com/Austreelis/Dev-Web-2022/issues/21>)
+
+Toute la US perso de Simon a été réalisée
+
+## Bilan Séverin
+
+(<https://github.com/Austreelis/Dev-Web-2022/issues/9>)
+Toute la US perrso de Séverin a été réalisée
+
+## Bilan Saskia
+
+(<https://github.com/Austreelis/Dev-Web-2022/issues/6>) 
+
+Tout la US perso de Saskia a été réalisée
 
 ... 
 

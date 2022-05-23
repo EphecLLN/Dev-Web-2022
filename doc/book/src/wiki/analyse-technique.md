@@ -1,6 +1,6 @@
 # Architecture 
 
-![diagramme d'architecture](https://github.com/Austreelis/Dev-Web-2022/blob/main/doc/diagrams/architecture.svg)
+![diagramme d'architecture](https://github.com/Austreelis/Dev-Web-2022/raw/main/doc/diagrams/architecture.svg)
 
 React est notre frontend, il s'occupe d'afficher les pages sur le navigateur du client. Node js avec la librarie Express s'occupe d'offrir des routes au frontend lui permettant d'accéder à certaines données de la base de données.
 
@@ -21,7 +21,6 @@ Ce qui fait que notre app pour bénéficier de :
 - hautement scalable : nombre de inputs/outputs élevés et temps de réponse et connexion court. 
 - polyvalente : nodejs nous permet de faire plusieurs choses comme par exemple un chat, un salon vocal etc.
 - écosystème important : grâce à npm on a accès à beaucoup de librairies open-source qui permet de ne pas réinventer la roue.
-
 
 Par contre Node js ne permet pas de faire des apps qui nécessite un temps processeur trop long comme le traitement d'images ou des longues boucles.
 
@@ -66,14 +65,15 @@ Nous utilisons webpack pour générer notre arborescence de fichiers statics à 
 
 **Express**
 base path : `/api/v0`
-méthode | routes | paramètres | argument body | exemple | retour 
-------- | ------ | -----------| ------------- | ------- | ------
-GET | /user  | | || 200
-GET | /inventory | id : id du scenario | | | 200
-POST | /register | pseudo : pseudo de l'utilisateur <br> password : mot de passe de l'utilisateur  |{user, psw} | |200 <br> 404( pseudo already used)
-PUT |/user/:id| id : identifiant de l'utilisateur |{user, psw} ||200  
-DELETE |/user/:id| id : identifiant de l'utilisateur||| 200 <br> 404(user not found)
-POST |login |pseudo:pseudo de l'utilisateur <br> password : mot de passe de l'utilisateur |{user, psw}||200 <br> 401(authentification failed) <br> 404 (user not found) <br> 400(wrong body request)
+
+méthode | routes     | paramètres                                                                      | argument body | type renvoyé     | retour | revoie de l'élément
+------- | ---------- | -----------------------------------------------------------------------------   | ------------- | ---------------- | ------ | -------------------
+GET     | /user      |                                                                                 |               |   JSON           | 200    | [{id, pseudo}]
+GET     | /inventory | id : id du scenario                                                             |               | JSON             | 200    | [{id, type, nom}, {id, type, nom},...]
+POST    | /register  | pseudo : pseudo de l'utilisateur <br> password : mot de passe de l'utilisateur  |{user, psw}    | text             | 200 <br> 404( pseudo already used)| you are logged in
+PUT     |/user/:id   | id : identifiant de l'utilisateur                                               |{user, psw}    |text              | 200  | user modified
+DELETE  |/user/:id   | id : identifiant de l'utilisateur                                               |               |       text       | 200 <br> 404(user not found) | user delete
+POST    |login       |pseudo:pseudo de l'utilisateur <br> password : mot de passe de l'utilisateur     | {user, psw}   | text             | 200 <br> 401(authentification failed) <br> 404 (user not found) <br> 400(wrong body request) | user add
 
 Swagger nous générera la documentation de notre API.
 
@@ -90,6 +90,7 @@ Notre cliente souhaite éviter tout ce qui est compte et MAriaDB permet de ne pa
 2. Diagrammes
 
  Example:
+
  ```json
  {
    "steps": {
@@ -111,7 +112,8 @@ Notre cliente souhaite éviter tout ce qui est compte et MAriaDB permet de ne pa
  }
 ```
 
-![](https://github.com/Austreelis/WebsiteWhereYouAreTheHero/blob/main/mockups/shema_db.jpg)
+![shéma-db](https://github.com/Austreelis/WebsiteWhereYouAreTheHero/raw/main/mockups/shema_db.jpg)
+
 l’inventaire dépend du scénario et on exporte tout l’inventaire au début de partie pour permettre a un joueur de prendre un objet du scenario.
 
 
@@ -175,4 +177,4 @@ Le code source React se trouve dans le dossier `client`. Le dossier `public` con
 
 5.  Fonctionnement
 
-Une partie importante de notre projet est ce qui permet aux joueurs de communiquer: Le chat. Une fois dans une partie (après avoir cliqué sur l'onglet `Play` de la page d'accueil), les joueurs peuvent entrer du texte dans un champ et l'envoyer aux autres en appuyant sur un bouton (`Send`) ou sur leur touche "Entré". Cette interaction va lancer un événement "submit" qui va appeler un callback préalablement enregistré. Le client va alors envoyer sur une websocket le message (ainsi que quelques informations basiques sur le joueur), qui va être réceptioné par le serveur. Le serveur va alors la renvoyer à tout les clients connecté à cette websocket, y compris l'envoyeur originel. Tous les clients affichent alors le message reçu.
+Une partie importante de notre projet est ce qui permet aux joueurs de communiquer: Le chat. Une fois dans une partie (après avoir cliqué sur l'onglet `Play` de la page d'accueil), les joueurs peuvent entrer du texte dans un champ et l'envoyer aux autres en appuyant sur un bouton (`Send`) ou sur leur touche "Entrée". Cette interaction va lancer un événement "submit" qui va appeler un callback préalablement enregistré. Le client va alors envoyer sur une websocket le message (ainsi que quelques informations basiques sur le joueur), qui va être réceptioné par le serveur. Le serveur va alors la renvoyer à tout les clients connecté à cette websocket, y compris l'envoyeur originel. Tous les clients affichent alors le message reçu.
