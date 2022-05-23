@@ -68,7 +68,7 @@
     "dotenv": "^16.0.1",
     "eslint": "^8.15.0",
     "eslint-plugin-jest": "^26.2.2",
-    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react": "^7.30.0",
     "graphology": "^0.24.1",
     "graphology-layout-force": "^0.2.4",
     "graphology-types": "^0.24.4",
