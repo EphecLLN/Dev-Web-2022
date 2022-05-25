@@ -7,11 +7,11 @@ const About = () => {
       flexDirection: "column",
       color:"black",
       width: "50%",
-      height: "100%",
+      height: "auto",
+      // eslint-disable-next-line max-len
+      backgroundImage: "url('https://images.pexels.com/photos/6990034/pexels-photo-6990034.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
     }}>
       < div style={{
-      // eslint-disable-next-line max-len
-        backgroundImage: "url('https://cdn.pixabay.com/photo/2020/01/30/06/38/given-4804499__340.jpg')",
         flex:"1",
       }}>
         <div>
@@ -24,7 +24,7 @@ const About = () => {
           <p>
         Pour notre cours de développement informatique,
         nous avons dû trouver un client afin de
-        réaliser un projet pour celui-ci. le notre était Fanny.
+        réaliser un projet pour celui-ci. Le nôtre était Fanny.
         Celle-ci souhaitait un site pour faire un jeu de rôle en ligne
         dans lequel tout est pris en compte 
         sans dépendre d&apos;autres logiciels externes
@@ -32,9 +32,11 @@ const About = () => {
         </div>
         <div>
           <h1>Lien vers notre wiki github</h1>
-          <a
-            // eslint-disable-next-line max-len
-            href="https://austreelis.github.io/WebsiteWhereYouAreTheHero/wiki/accueil.html">
+          <a style={{
+            color:"black"
+          }}
+          // eslint-disable-next-line max-len
+          href="https://austreelis.github.io/WebsiteWhereYouAreTheHero/wiki/accueil.html">
           wiki github</a>
         </div>
       </div>
