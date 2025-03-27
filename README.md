@@ -1,25 +1,3 @@
-Installation vmware 
-https://ephec-my.sharepoint.com/:b:/g/personal/l_vandormael_ephec_be/ERwgCqwiOw9Dq1rW3Z1zBaUB_vmjiXZQDg9H5WjLQxB29g?e=sZtxtP
-
-TP 1 et 2 : Introduction à Linux et à la ligne de commande 
-https://ephec-my.sharepoint.com/:b:/g/personal/l_vandormael_ephec_be/ESZQnyt-gntOoKH54pW6bPkBFrTS5tdFvv4NUYJHkNKjiA?e=MZ6Xl9
-
-https://ephec-my.sharepoint.com/:b:/g/personal/l_vandormael_ephec_be/EeN8dQ8CT8hHkxBtcLCT8tQBrCcQhDFimnv6CtZfgwW9EQ?e=30BpEn
-
-Connexion SSH
-https://ephec-my.sharepoint.com/:b:/g/personal/l_vandormael_ephec_be/EUbHaLCz235OufYP9cNMMB8BY8-ujXN9xkUxtgSx7BPCDQ?e=UTke1y
-
-TP 3 - Commandes évoluées et permissions
-https://ephec-my.sharepoint.com/:b:/g/personal/l_vandormael_ephec_be/EcSt_J1frEhBmF4pos7EwFIBxH3YW8T-SG4gdTOeUfskmQ?e=poSJMj
-
-https://ephec-my.sharepoint.com/:b:/g/personal/l_vandormael_ephec_be/EU2NdrEXI5dCmKT39o38H-gBCNFIwC6BSD1tuqV9AQsImQ?e=yZsqPA
-
-TP 4 - La gestion des droits et des utilisateurs sous Linux
-
-https://ephec-my.sharepoint.com/:b:/g/personal/l_vandormael_ephec_be/EbYvnRiEWbVMrV5dCVELqU8BjkXH87pDkeNS2geKkq9yew?e=SSkkmN
-
-test issue
-
 # Dev-Web-2022
 Template de repo pour le projet Dev Web 2022
 
